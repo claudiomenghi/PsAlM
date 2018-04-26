@@ -4,6 +4,8 @@ PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 applicat
 
 
 ## An overview on PsAlMISt
+An overview on PsAlMISt is provided in the following figure
+![Image of the view text](src/main/resources/images/Co4robotGUIExample.png)
 
 
 ## Pre-requisites
@@ -11,6 +13,6 @@ PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 applicat
 * At least Java version 1.8
 
 
-![Image of the view text](src/main/resources/images/Co4robotGUIExample.png)
+
 
 
