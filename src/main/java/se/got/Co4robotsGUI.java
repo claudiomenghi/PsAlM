@@ -40,14 +40,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -55,16 +52,12 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -72,13 +65,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.text.DefaultFormatter;
 
-import se.got.engine.EventSelectionValidator;
-import se.got.engine.EventStorage;
 import se.got.ltl.LTLFormula;
 import se.got.ltl.visitors.LTLFormulaToStringVisitor;
-import se.got.sel.Event;
 
 public class Co4robotsGUI extends javax.swing.JFrame  {
 
@@ -104,10 +93,6 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 	private static final long serialVersionUID = 1L;
 
 	private final static String TITLE = "co4robots: High Level Specification Panel";
-	private final static String EVENTNAMES = "Show service names";
-	private final static String EVENTSPECIFICATION = "Show service specifications";
-	private final static String EDITEVENT = "Edit service";
-	private final static String ADDEVENT = "Add Service";
 	private final static String MOVEMENT_PATTERN = "Movement Specification Pattern";
 	private final static String SEND_MISSION = "Send mission";
 	private final static String LOAD_MISSION = "Load mission";
@@ -121,7 +106,6 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 	private JTextArea ltlFormula;
 
 	private JTextArea intentText;
-	//private JTextArea variation;
 	private JTextArea examples;
 	private JTextArea occurences;
 	private JComboBox<String> f1;
@@ -130,7 +114,6 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 
 	private JTextField locations;
 	public final static Color BACKGROUNDCOLOR = Color.WHITE;
-	private EventStorage fEvents;
 
 
 	public Co4robotsGUI(String ip, String port) {
@@ -190,9 +173,6 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 
 
 
-	public boolean isPatternEventSelectionPossible(Event aEvent, Event aAltEvent) {
-		return EventSelectionValidator.isPatternEventSelectionPossible(this, aEvent, aAltEvent);
-	}
 
 
 
@@ -796,8 +776,6 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 		remotePanel.setBackground(BACKGROUNDCOLOR);
 		locationPanel = new JPanel();
 
-		java.util.regex.Pattern commaseparated = java.util.regex.Pattern
-		        .compile("(([a-z][a-z1-9]*),)*.([a-z][a-z1-9]*)*");
 
 		locations = new JTextField(40);
 		
