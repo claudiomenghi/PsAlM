@@ -205,19 +205,7 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 	 */
 	private void initComponents(String ip, String port) {
 		setLayout(new BorderLayout( ));
-		//setSize(700,200);
-		/*JScrollBar hbar=new JScrollBar(JScrollBar.HORIZONTAL, 30, 20, 0, 700);
-        JScrollBar vbar=new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 700);
-        class MyAdjustmentListener implements AdjustmentListener {
-        	@Override
-            public void adjustmentValueChanged(AdjustmentEvent e) {
-                getContentPane().repaint();
-            }
-        }
- 		
-        hbar.addAdjustmentListener(new MyAdjustmentListener( ));
-        vbar.addAdjustmentListener(new MyAdjustmentListener( ));
-        */
+		
 	//ending the initials	
 		patternsJPanel = new javax.swing.JPanel();
 		patternsJPanel.setBackground(BACKGROUNDCOLOR);
@@ -760,7 +748,7 @@ public class Co4robotsGUI extends javax.swing.JFrame  {
 		BufferedImage myPicture;
 		try {
 			myPicture = ImageIO
-					.read(Co4robotsGUI.class.getClassLoader().getResourceAsStream("images/co4robotsLogo.png"));
+					.read(getClass().getClassLoader().getResourceAsStream("images/co4robotsLogo.png"));
 
 			ImageIcon icon = new ImageIcon(myPicture);
 			JLabel picLabel = new JLabel(icon);
