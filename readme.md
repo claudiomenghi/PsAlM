@@ -8,9 +8,10 @@ An overview on PsAlMISt is provided in the following figure
 ![Image of the view text](src/main/resources/images/Co4robotGUIExample.png)
 
 
-## Pre-requisites
-
-* At least Java version 1.8
+## Using PsAlMISt
+* Requirements: at least the Java version 1.8 must be installed on your laptop
+* [https://github.com/claudiomenghi/PsAlMISt/releases](Download) the last version of PsAlMISt
+* Double click on the downloaded jar
 
 
 
