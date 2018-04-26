@@ -1,20 +1,12 @@
 # PsAlMISt: Pattern bAsed MIssion Specifier
 
+PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 application. It allows to create complex missions based on a set of Movement specification patterns. PsAlMISt can also send the created mission to a given planner that computes and executes it. It is fully integrated within the Co4robot project [http://www.co4robots.eu/](http://www.co4robots.eu/)
+
+
 ## Pre-requisites
 
 * At least Java version 1.8
 
-## Using the High-level Specification Manager
+## Usage
 
-* downloading the specification manager
-    * cd ~/catkin_ws/src
-    * git clone -b git@gitc4r.pal-robotics.com:claudiomenghi/specificationmanager.git master
-    * cd ~/catkin_ws 
-    * catkin_make
 
-* run the GUI
-    * cd ~/catkin_ws/src/specificationmanager
-    * java -jar specificationmanager.jar
-
-* run the rest server
-    * python rest_python.py
