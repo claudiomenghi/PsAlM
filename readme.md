@@ -1,4 +1,4 @@
-###
+# PsAlMISt: Pattern bAsed MIssion Specifier
 
 ## Pre-requisites
 
