@@ -10,7 +10,7 @@ An overview on PsAlMISt is provided in the following figure
 
 ## Using PsAlMISt
 * Requirements: at least the Java version 1.8 must be installed on your laptop
-* [Download](https://github.com/claudiomenghi/PsAlMISt/releases] the last version of PsAlMISt
+* [Download](https://github.com/claudiomenghi/PsAlMISt/releases) the last version of PsAlMISt
 * Double click on the downloaded jar
 
 
