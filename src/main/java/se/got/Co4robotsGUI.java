@@ -1,8 +1,6 @@
-/**ro
- * Copyright (C) 2011-20Olo14 The University of Gotheborg
- *
- * These file have been developed as a part of the co4robots project.
- * It is a tool
+/**
+ * @author Cludio Menghi
+ *  
  */
 package se.got;
 
@@ -21,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -30,7 +29,6 @@ import javax.swing.DropMode;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -59,17 +57,15 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	private static final Font font = new Font("Arial", Font.PLAIN, 16);
 	private static final Font fonttitle = new Font("Arial", Font.BOLD, 16);
 
-	
-	private static DefaultListModel<String> listModel=new DefaultListModel<>();
-	
-	
-	private static JList<String> list = new JList<String>(); // data has type Object[]
-	
-	private static DefaultListModel<String> missionModel=new DefaultListModel<>();
-	
-	private static JList<String> missionItem = new JList<String>(); // data has type Object[]
+	private static DefaultListModel<String> listModel = new DefaultListModel<>();
+
+	private static DefaultListModel<String> missionLibraryModel = new DefaultListModel<>();
+	private static JList<String> missionLibrary = new JList<String>();
+
 
 	
+	private static JList<String> list = new JList<String>(); // data has type Object[]
+
 	private JPanel locationPanel;
 	private static JTextField ipTextField;
 	private static JTextField portTextField;
@@ -78,10 +74,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	private JPanel remotePanel;
 	private static int FORMULA_COUNTER = 1;
 
-	private static Map<String, LTLFormula> formulae = new HashMap<>();
-
-
-
+	private static JPanel missionLibraryPanel = new JPanel();
 	/**
 	 * 
 	 */
@@ -93,7 +86,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	private final static String PATTERN_SELECTION_PANEL = "Pattern selection panel";
 
-	private static JList<String> propertyList;
+//	private static JList<String> propertyList;
 
 	private JComboBox<String> patternCategorySelector;
 	private JComboBox<String> patternBoxSelector;
@@ -113,9 +106,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	public Co4robotsGUI(String ip, String port) {
 		super();
+		
 
 		list.setModel(listModel);
-		
+
 		this.getContentPane().setBackground(BACKGROUNDCOLOR);
 
 		UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
@@ -136,10 +130,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		TitledBorder movementPatternTitle = BorderFactory.createTitledBorder("Property  List");
 		movementPatternTitle.setTitlePosition(TitledBorder.RIGHT);
 
-		propertyList = new JList<String>(elements);
-		propertyList.setBackground(Color.GRAY);
-
-		propertyList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		initComponents(ip, port);
 		System.out.println("GUI loaded");
 
@@ -256,8 +246,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						DefaultComboBoxModel<String> formulaeList1 = new DefaultComboBoxModel<String>();
 						DefaultComboBoxModel<String> formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -270,8 +262,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -289,8 +283,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -306,8 +302,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -324,8 +322,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -343,8 +343,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -360,8 +362,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -377,8 +381,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -394,8 +400,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -411,8 +419,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -429,8 +439,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -446,8 +458,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -463,8 +477,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -480,8 +496,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -497,8 +515,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -516,8 +536,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -533,8 +555,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -550,8 +574,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 						formulaeList1 = new DefaultComboBoxModel<String>();
 						formulaeList2 = new DefaultComboBoxModel<String>();
 
-						formulae.keySet().stream().forEach(p -> formulaeList1.addElement(p));
-						formulae.keySet().stream().forEach(p -> formulaeList2.addElement(p));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList1.addElement(p.getKey()));
+						MissionLibrary.mapSpecificationFormula.entrySet().stream()
+								.forEach(p -> formulaeList2.addElement(p.getKey()));
 
 						f1.setModel(formulaeList1);
 						f2.setModel(formulaeList2);
@@ -679,7 +705,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.subscribe.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()),list,listModel);
+				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()), list,
+						listModel);
 				Thread t = new Thread(sub);
 				t.start();
 			}
@@ -689,12 +716,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 				if (locations.getText().equals(INIT_POSITION_MESSAGE)) {
 					JOptionPane.showMessageDialog(null, "Insert the set of locations to be considered");
+
 				} else {
 
 					try {
 						loadMission();
+						repaint();
+						missionLibraryPanel.repaint();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -719,8 +748,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		// capturing the main panel
 		JPanel mainPanel = new JPanel();
 		mainPanel.setBackground(BACKGROUNDCOLOR);
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
-		mainPanel.setLayout(layout);
 		getContentPane().add(mainPanel);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -729,20 +756,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		scrollPane.setViewportView(mainPanel);
 		// end capturing
 
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
-
 		remotePanel = new JPanel();
 
 		ipTextField = new JTextField(15);
 		ipTextField.setText(ip);
 		ipTextField.setColumns(15);
-		
-		
 
 		portTextField = new JTextField(5);
 		portTextField.setText("13000");
-		
 
 		publisherportTextField = new JTextField(5);
 		publisherportTextField.setText("13001");
@@ -766,77 +787,59 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		locations.setText("Drag here");
 		locations.setText(INIT_POSITION_MESSAGE);
 		locationPanel.setBackground(BACKGROUNDCOLOR);
-		
-		//list.setTransferHandler(new TransferHandlerCustom());
+
 		locationPanel.add(locations);
-		
+
 		javax.swing.GroupLayout memotePalenlLayout = new javax.swing.GroupLayout(remotePanel);
 
-
-		JPanel p1=new JPanel();
+		JPanel p1 = new JPanel();
 		p1.setBackground(BACKGROUNDCOLOR);
 		p1.add(ipTextField);
-		
-		JPanel p2=new JPanel();
+
+		JPanel p2 = new JPanel();
 		p2.setBackground(BACKGROUNDCOLOR);
 		p2.add(publisherportTextField);
-		
-		JPanel p3=new JPanel();
+
+		JPanel p3 = new JPanel();
 		p3.setBackground(BACKGROUNDCOLOR);
 		p3.add(portTextField);
-		
-		JPanel clientServer=new JPanel();
+
+		JPanel clientServer = new JPanel();
 		clientServer.setBackground(BACKGROUNDCOLOR);
-		FlowLayout f=new FlowLayout();
-		
+		FlowLayout f = new FlowLayout();
+
 		clientServer.setLayout(f);
 		clientServer.add(ipLabel);
 		clientServer.add(p1);
 		clientServer.add(portLabel);
 		clientServer.add(p3);
 		clientServer.add(this.sendMission);
-		
-		JPanel pubSub=new JPanel();
+
+		JPanel pubSub = new JPanel();
 		pubSub.setBackground(BACKGROUNDCOLOR);
-		FlowLayout pubsublayout=new FlowLayout();
+		FlowLayout pubsublayout = new FlowLayout();
 		pubSub.setLayout(pubsublayout);
 		pubSub.add(locationPanel);
 		pubSub.add(publisherLabel);
 		pubSub.add(p2);
 		pubSub.add(this.subscribe);
-		
+
 		memotePalenlLayout.setHorizontalGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(clientServer)
-				//.addComponent(ipLabel)
-				//.addComponent(p1)
-				//.addComponent(portLabel)
-				//.addComponent(p3)
-				//.addComponent(this.sendMission)
-						)
-				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(pubSub)
-				));
+				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(clientServer))
+				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(pubSub)));
 
 		memotePalenlLayout.setVerticalGroup(memotePalenlLayout.createSequentialGroup()
 				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						//.addComponent(ipLabel)
-				//.addComponent(p1)
-				//.addComponent(portLabel)
-				//.addComponent(p3)
-				//.addComponent(this.sendMission)
 						.addComponent(clientServer))
-				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-				.addComponent(pubSub)));
+				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(pubSub)));
 
 		remotePanel.setLayout(memotePalenlLayout);
-		
 
 		remotePanel.setBackground(BACKGROUNDCOLOR);
 
 		TitledBorder titleBorder = javax.swing.BorderFactory.createTitledBorder(null, "Robot network settings", 2, 2,
 				font, redCo4robots);
 		remotePanel.setBorder(titleBorder);
-
-		
 
 		JLabel locationLabel = new JLabel("Actions or locations:");
 		locationLabel.setForeground(grayCo4robots);
@@ -846,8 +849,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		JLabel ltlLabel = new JLabel("LTL formula:");
 		ltlLabel.setForeground(grayCo4robots);
 		ltlLabel.setFont(fonttitle);
-		// ltlFormulaTitle.setTitlePosition(TitledBorder.RIGHT);
-		// ltlFormula.setBorder(ltlFormulaTitle);
 
 		intentText = new JTextArea();
 		intentText.setLineWrap(true);
@@ -860,11 +861,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		availableActionsLabel.setForeground(grayCo4robots);
 		availableActionsLabel.setFont(fonttitle);
 
-		// variation = new JTextArea();
-		// variation.setLineWrap(true);
 		TitledBorder variationTitle = BorderFactory.createTitledBorder("Variations");
 		variationTitle.setTitlePosition(TitledBorder.RIGHT);
-		// variation.setBorder(variationTitle);
 
 		examples = new JTextArea();
 		examples.setLineWrap(true);
@@ -881,23 +879,26 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		occuttencesTitle.setTitlePosition(TitledBorder.RIGHT);
 		occurences.setBorder(occuttencesTitle);
 
-		JPanel propertyLibrary = new JPanel();
-		JScrollPane p = new JScrollPane(this.propertyList);
-		p.setBackground(BACKGROUNDCOLOR);
-
-		TitledBorder propertiesTitle = javax.swing.BorderFactory.createTitledBorder(null, "Missions Library", 2, 2,
+		
+		JScrollPane p = new JScrollPane(missionLibrary);
+		missionLibrary.setBackground(grayCo4robots);
+		p.setBackground(grayCo4robots);
+		missionLibrary.setForeground(Color.white);
+		
+		TitledBorder missionLibraryBorder = javax.swing.BorderFactory.createTitledBorder(null, "Missions Library", 2, 2,
 				font, redCo4robots);
 
-		propertyLibrary.setBackground(BACKGROUNDCOLOR);
-		propertyLibrary.setBorder(propertiesTitle);
+		missionLibraryPanel.setBorder(missionLibraryBorder);
+		missionLibraryPanel.setBackground(BACKGROUNDCOLOR);
+		
+		//missionLibraryPanel.add(p);
 
-		javax.swing.GroupLayout lay2 = new javax.swing.GroupLayout(propertyLibrary);
+
+		javax.swing.GroupLayout lay2 = new javax.swing.GroupLayout(missionLibraryPanel);
 		lay2.setHorizontalGroup(lay2.createSequentialGroup().addComponent(p));
 		lay2.setVerticalGroup(lay2.createSequentialGroup().addComponent(p));
 
-		propertyLibrary.setLayout(lay2);
-
-		layout.createSequentialGroup();
+		missionLibraryPanel.setLayout(lay2);
 
 		JPanel actionAvailable = new JPanel();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -913,7 +914,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		actionAvailable.setBackground(Color.WHITE);
 		actionAvailable.add(list);
-		list.setDragEnabled(true);	
+		list.setDragEnabled(true);
 
 		JLabel patternLabel = new JLabel("Pattern:");
 		patternLabel.setForeground(grayCo4robots);
@@ -933,12 +934,20 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		patternCategorySelector.setBackground(BACKGROUNDCOLOR);
 
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
+		mainPanel.setLayout(layout);
+
+		layout.setAutoCreateGaps(true);
+		layout.setAutoCreateContainerGaps(true);
+
+		layout.createSequentialGroup();
+
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jPanelLogo)
 				.addGroup(layout.createParallelGroup().addComponent(remotePanel).addComponent(patternPanel).addGroup(
-						layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(propertyLibrary))));
+						layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(missionLibraryPanel))));
 
 		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(jPanelLogo).addComponent(remotePanel)
-				.addComponent(patternPanel).addComponent(propertyLibrary));
+				.addComponent(patternPanel).addComponent(missionLibraryPanel));
 
 		javax.swing.GroupLayout lay = new javax.swing.GroupLayout(patternPanel);
 
@@ -1009,19 +1018,16 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			examples.setText(p2.getExamples());
 			occurences.setText(p2.getOccurrences());
 
-			computedltlformula = p2.getMission(formulae.get((String) f1.getSelectedItem()),
-					formulae.get((String) f2.getSelectedItem()));
+			computedltlformula = p2.getMission(
+					MissionLibrary.mapSpecificationFormula.get((String) f1.getSelectedItem()),
+					MissionLibrary.mapSpecificationFormula.get((String) f2.getSelectedItem()));
 
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			formulae.put(FORMULA_COUNTER + " - " + (String) patternBoxSelector.getSelectedItem() + "("
+			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + "("
 					+ f1.getSelectedItem() + ", " + f2.getSelectedItem() + ")", computedltlformula);
 
-			List<String> array1 = new ArrayList<String>(formulae.keySet());
-			String[] t = new String[array1.size()];
-			array1.toArray(t);
-			propertyList.setListData(t);
-
+			
 			FORMULA_COUNTER = FORMULA_COUNTER + 1;
 			break;
 		case "Avoidance":
@@ -1029,20 +1035,18 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			computedltlformula = p.getMission(selectedLocations);
 			intentText.setText(p.getDescription());
 
-			// variation.setText(p.getVariations());
-
 			examples.setText(p.getExamples());
 
 			occurences.setText(p.getOccurrences());
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			formulae.put(FORMULA_COUNTER + " - " + (String) patternBoxSelector.getSelectedItem() + "("
-					+ locations.getText() + ")", computedltlformula);
+			MissionLibrary.mapSpecificationFormula.put(
+					(String) patternBoxSelector.getSelectedItem() + "(" + locations.getText() + ")",
+					computedltlformula);
 
-			List<String> array = new ArrayList<String>(formulae.keySet());
+			List<String> array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
 			String[] d = new String[array.size()];
 			array.toArray(d);
-			propertyList.setListData(d);
 			FORMULA_COUNTER = FORMULA_COUNTER + 1;
 
 			break;
@@ -1050,44 +1054,56 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			CoreMovementPatterns p1 = CoreMovementPatterns.valueOf(selectedIdem.toUpperCase().replaceAll(" ", "_"));
 			computedltlformula = p1.getMission(selectedLocations);
 			intentText.setText(p1.getDescription());
-			// variation.setText(p1.getVariations());
 			examples.setText(p1.getExamples());
 			occurences.setText(p1.getOccurrences());
 
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			// formulae.put(FORMULA_COUNTER + " - " + (String)
-			// patternBoxSelector.getSelectedItem() + "(" + locations.getText()
-			// + ")", computedltlformula);
-			array = new ArrayList<String>(formulae.keySet());
+			array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
 			d = new String[array.size()];
 			array.toArray(d);
-			propertyList.setListData(d);
 			FORMULA_COUNTER = FORMULA_COUNTER + 1;
+
+			MissionLibrary.mapSpecificationFormula.put(
+					(String) patternBoxSelector.getSelectedItem() + "(" + locations.getText() + ")",
+					computedltlformula);
 
 			break;
 		case "Composition":
 			Composition c = Composition.valueOf(selectedIdem.toUpperCase().replaceAll(" ", "_"));
 			intentText.setText(c.getDescription());
 
-			computedltlformula = c.getMission(formulae.get((String) f1.getSelectedItem()),
-					formulae.get((String) f2.getSelectedItem()));
+			computedltlformula = c.getMission(MissionLibrary.mapSpecificationFormula.get((String) f1.getSelectedItem()),
+					MissionLibrary.mapSpecificationFormula.get((String) f2.getSelectedItem()));
 
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			formulae.put(FORMULA_COUNTER + " - " + (String) patternBoxSelector.getSelectedItem() + "("
+			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + "("
 					+ f1.getSelectedItem() + ", " + f2.getSelectedItem() + ")", computedltlformula);
 
-			array = new ArrayList<String>(formulae.keySet());
+			array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
 			d = new String[array.size()];
 			array.toArray(d);
-			propertyList.setListData(d);
-
+		
 			FORMULA_COUNTER = FORMULA_COUNTER + 1;
 		default:
 			break;
 		}
 
+		System.out.println(MissionLibrary.mapSpecificationFormula.keySet());
+
+		missionLibraryModel = new DefaultListModel<>();
+		for (Entry<String, LTLFormula> e : MissionLibrary.mapSpecificationFormula.entrySet()) {
+			missionLibraryModel.addElement(e.getKey());
+		}
+
+		missionLibrary.setModel(missionLibraryModel);
+		missionLibrary.setModel(missionLibraryModel);
+		System.out.println("End load mission"+missionLibraryModel);
+
+		missionLibrary.repaint();
+		missionLibrary.repaint();
+		repaint();
 		return computedltlformula;
 	}
 
@@ -1095,7 +1111,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		;
 		intentText.setText("");
 		ltlFormula.setText("");
-		// variation.setText("");
 		examples.setText("");
 		occurences.setText("");
 	}
