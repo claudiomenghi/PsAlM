@@ -47,7 +47,7 @@ import se.got.ltl.visitors.LTLFormulaToStringVisitor;
 
 public class Co4robotsGUI extends javax.swing.JFrame {
 
-	private static final String INIT_POSITION_MESSAGE = "Insert the positions to be considered separated by a comma";
+	private static final String INIT_POSITION_MESSAGE = "Drag and drop the considered locations and actions and separate them with comma";
 
 	private static final int FRAME_INIT_HEIGTH = 600;
 
@@ -58,14 +58,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	private static final Font font = new Font("Arial", Font.PLAIN, 16);
 	private static final Font fonttitle = new Font("Arial", Font.BOLD, 16);
 
-	private static DefaultListModel<String> listModel = new DefaultListModel<>();
+	private static DefaultListModel<String> actionsAndLocationsModel = new DefaultListModel<>();
 
 	private static DefaultListModel<String> missionLibraryModel = new DefaultListModel<>();
 	private static JList<String> missionLibrary = new JList<String>();
 
 
-	
-	private static JList<String> list = new JList<String>(); // data has type Object[]
+
+	private static JList<String> actionsAndLocations = new JList<String>(); 
 
 	private JPanel locationPanel;
 	private static JTextField ipTextField;
@@ -108,7 +108,12 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	public Co4robotsGUI(String ip, String port) {
 		super();
 	
-		list.setModel(listModel);
+		actionsAndLocationsModel.addElement("Beedroom");
+		actionsAndLocationsModel.addElement("Office");
+		actionsAndLocationsModel.addElement("Dining_Room");
+		actionsAndLocationsModel.addElement("Load_box");
+		actionsAndLocationsModel.addElement("Unload_box");
+		actionsAndLocations.setModel(actionsAndLocationsModel);
 
 		
 		UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
@@ -704,8 +709,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.subscribe.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()), list,
-						listModel);
+				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()), actionsAndLocations,
+						actionsAndLocationsModel);
 				Thread t = new Thread(sub);
 				t.start();
 			}
@@ -781,14 +786,15 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		locationPanel = new JPanel();
 
-		locations = new JTextField(40);
+		locations = new JTextField(80);
 		locations.setDropMode(DropMode.INSERT);
-		locations.setText("Drag here");
-		locations.setText(INIT_POSITION_MESSAGE);
+		//locations.setText("Drag here");
+	//	locations.setText(INIT_POSITION_MESSAGE);
 		locationPanel.setBackground(BACKGROUNDCOLOR);
 
 		locationPanel.add(locations);
 
+		
 		javax.swing.GroupLayout memotePalenlLayout = new javax.swing.GroupLayout(remotePanel);
 
 		JPanel p1 = new JPanel();
@@ -899,20 +905,20 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		missionLibraryPanel.setLayout(lay2);
 
 		JPanel actionAvailable = new JPanel();
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setAutoscrolls(true);
-		list.setMaximumSize(new Dimension(30, 20));
-		list.setSelectedIndex(0);
-		list.setVisibleRowCount(2);
-		JScrollPane listScroller = new JScrollPane(list);
+		actionsAndLocations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		actionsAndLocations.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		actionsAndLocations.setAutoscrolls(true);
+		actionsAndLocations.setMaximumSize(new Dimension(30, 20));
+		actionsAndLocations.setSelectedIndex(0);
+		actionsAndLocations.setVisibleRowCount(2);
+		JScrollPane listScroller = new JScrollPane(actionsAndLocations);
 		listScroller.setPreferredSize(new Dimension(30, 20));
 
 		actionAvailable.setLayout(new GridBagLayout());
 
 		actionAvailable.setBackground(Color.WHITE);
-		actionAvailable.add(list);
-		list.setDragEnabled(true);
+		actionAvailable.add(actionsAndLocations);
+		actionsAndLocations.setDragEnabled(true);
 
 		JLabel patternLabel = new JLabel("Pattern:");
 		patternLabel.setForeground(grayCo4robots);
@@ -949,15 +955,16 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout lay = new javax.swing.GroupLayout(patternPanel);
 
+		JLabel help=new JLabel(INIT_POSITION_MESSAGE);
 		lay.setHorizontalGroup(lay.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(patternCategoryLabel)
 				.addComponent(patternCategorySelector).addComponent(patternLabel).addComponent(patternBoxSelector)
-				.addComponent(locationLabel).addComponent(locationPanel).addComponent(availableActionsLabel)
+				.addComponent(locationLabel).addComponent(locationPanel).addComponent(help).addComponent(availableActionsLabel)
 				.addComponent(actionAvailable).addComponent(ltlLabel).addComponent(ltlFormula).addComponent(intentLabel)
 				.addComponent(intentText).addComponent(f1).addComponent(f2).addComponent(this.loadMission));
 
 		lay.setVerticalGroup(lay.createSequentialGroup().addComponent(patternCategoryLabel)
 				.addComponent(patternCategorySelector).addComponent(patternLabel).addComponent(patternBoxSelector)
-				.addComponent(locationLabel).addComponent(locationPanel).addComponent(availableActionsLabel)
+				.addComponent(locationLabel).addComponent(locationPanel).addComponent(help).addComponent(availableActionsLabel)
 				.addComponent(actionAvailable).addComponent(ltlLabel).addComponent(ltlFormula).addComponent(intentLabel)
 				.addComponent(intentText).addComponent(f1).addComponent(f2).addComponent(this.loadMission));
 
