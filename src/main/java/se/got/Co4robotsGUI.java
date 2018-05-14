@@ -47,7 +47,7 @@ import se.got.ltl.visitors.LTLFormulaToStringVisitor;
 
 public class Co4robotsGUI extends javax.swing.JFrame {
 
-	private static final String INIT_POSITION_MESSAGE = "Drag and drop the considered locations and actions and separate them with comma";
+	private static final String DRAG_AND_DROP_MESSAGE = "Drag and drop the considered locations and actions and separate them with comma";
 
 	private static final int FRAME_INIT_HEIGTH = 600;
 
@@ -63,19 +63,24 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	private static DefaultListModel<String> missionLibraryModel = new DefaultListModel<>();
 	private static JList<String> missionLibrary = new JList<String>();
 
-
-
-	private static JList<String> actionsAndLocations = new JList<String>(); 
+	private static JList<String> actionsAndLocations = new JList<String>();
 
 	private JPanel locationPanel;
 	private static JTextField ipTextField;
 	private static JTextField portTextField;
 	private static JTextField publisherportTextField;
 
+	private static JLabel availableActionsLabel;
+	private static JLabel intentLabel;
+
 	private JPanel remotePanel;
 	private static int FORMULA_COUNTER = 1;
 
 	private static JPanel missionLibraryPanel = new JPanel();
+
+	private static JLabel actionsOrLocationsLabel;
+
+	private static JLabel dragAndDropJLabel;
 	/**
 	 * 
 	 */
@@ -87,11 +92,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	private final static String PATTERN_SELECTION_PANEL = "Pattern selection panel";
 
-//	private static JList<String> propertyList;
+	// private static JList<String> propertyList;
 
 	private JComboBox<String> patternCategorySelector;
 	private JComboBox<String> patternBoxSelector;
 	private JTextArea ltlFormula;
+
+	private JLabel f1Label = new JLabel("Formula f1:");
+	private JLabel f2Label = new JLabel("Formula f2:");
 
 	private static Subscriber sub;
 
@@ -107,7 +115,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	public Co4robotsGUI(String ip, String port) {
 		super();
-	
+
 		actionsAndLocationsModel.addElement("Beedroom");
 		actionsAndLocationsModel.addElement("Office");
 		actionsAndLocationsModel.addElement("Dining_Room");
@@ -115,24 +123,9 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		actionsAndLocationsModel.addElement("Unload_box");
 		actionsAndLocations.setModel(actionsAndLocationsModel);
 
-		
 		UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
 
 		patternItems = new DefaultComboBoxModel<>();
-
-		this.f1 = new JComboBox<String>();
-		this.f2 = new JComboBox<String>();
-		String[] elements = { "" };
-		f1 = new JComboBox<>();
-
-		f1.setBorder(javax.swing.BorderFactory.createTitledBorder("Formula f1"));
-		f1.setToolTipText("");
-
-		f2.setBorder(javax.swing.BorderFactory.createTitledBorder("Formula f2"));
-		f2.setToolTipText("");
-
-		TitledBorder movementPatternTitle = BorderFactory.createTitledBorder("Property  List");
-		movementPatternTitle.setTitlePosition(TitledBorder.RIGHT);
 
 		initComponents(ip, port);
 		System.out.println("GUI loaded");
@@ -244,352 +237,143 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 					case "OR":
 						intentText.setText(Composition.OR.getDescription());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						DefaultComboBoxModel<String> formulaeList1 = new DefaultComboBoxModel<String>();
-						DefaultComboBoxModel<String> formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showComposeView();
 						break;
+
 					case "AND":
 						intentText.setText(Composition.AND.getDescription());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
-
+						showComposeView();
 						break;
-					// triggers
+
 					case "Wait":
 						intentText.setText(Triggers.WAIT.getDescription());
-						//// variation.setText(Triggers.WAIT.getVariations());
-						examples.setText(Triggers.WAIT.getExamples());
-						occurences.setText(Triggers.WAIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showComposeView();
 						break;
+
 					case "Instantaneous Reaction":
 						intentText.setText(Triggers.INSTANTANEOUS_REACTION.getDescription());
-						//// variation.setText(Triggers.INSTANTANEOUS_REACTION.getVariations());
-						examples.setText(Triggers.INSTANTANEOUS_REACTION.getExamples());
-						occurences.setText(Triggers.INSTANTANEOUS_REACTION.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
-
+						showPatternView();
 						break;
 					case "Delayed Reaction":
 						intentText.setText(Triggers.DELAYED_REACTION.getDescription());
-						//// variation.setText(Triggers.DELAYED_REACTION.getVariations());
-						examples.setText(Triggers.DELAYED_REACTION.getExamples());
-						occurences.setText(Triggers.DELAYED_REACTION.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
-					// core movements
-					// visits
 					case "Visit":
 						intentText.setText(CoreMovementPatterns.VISIT.getDescription());
-						//// variation.setText(CoreMovementPatterns.VISIT.getVariations());
-						examples.setText(CoreMovementPatterns.VISIT.getExamples());
-						occurences.setText(CoreMovementPatterns.VISIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Sequenced Visit":
 						intentText.setText(CoreMovementPatterns.SEQUENCED_VISIT.getDescription());
-						// variation.setText(CoreMovementPatterns.SEQUENCED_VISIT.getVariations());
-						examples.setText(CoreMovementPatterns.SEQUENCED_VISIT.getExamples());
-						occurences.setText(CoreMovementPatterns.SEQUENCED_VISIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Ordered Visit":
 						intentText.setText(CoreMovementPatterns.ORDERED_VISIT.getDescription());
-						// variation.setText(CoreMovementPatterns.ORDERED_VISIT.getVariations());
-						examples.setText(CoreMovementPatterns.ORDERED_VISIT.getExamples());
-						occurences.setText(CoreMovementPatterns.ORDERED_VISIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Strict Ordered Visit":
 						intentText.setText(CoreMovementPatterns.STRICT_ORDERED_VISIT.getDescription());
-						// variation.setText(CoreMovementPatterns.STRICT_ORDERED_VISIT.getVariations());
-						examples.setText(CoreMovementPatterns.STRICT_ORDERED_VISIT.getExamples());
-						occurences.setText(CoreMovementPatterns.STRICT_ORDERED_VISIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Fair Visit":
 						intentText.setText(CoreMovementPatterns.FAIR_VISIT.getDescription());
-						// variation.setText(CoreMovementPatterns.FAIR_VISIT.getVariations());
-						examples.setText(CoreMovementPatterns.FAIR_VISIT.getExamples());
-						occurences.setText(CoreMovementPatterns.FAIR_VISIT.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
-					// patrolling
+					
 					case "Patrolling":
 						intentText.setText(CoreMovementPatterns.PATROLLING.getDescription());
-						// variation.setText(CoreMovementPatterns.PATROLLING.getVariations());
-						examples.setText(CoreMovementPatterns.PATROLLING.getExamples());
-						occurences.setText(CoreMovementPatterns.PATROLLING.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
+						
 					case "Sequenced Patrolling":
 						intentText.setText(CoreMovementPatterns.SEQUENCED_PATROLLING.getDescription());
-						// variation.setText(CoreMovementPatterns.SEQUENCED_PATROLLING.getVariations());
-						examples.setText(CoreMovementPatterns.SEQUENCED_PATROLLING.getExamples());
-						occurences.setText(CoreMovementPatterns.SEQUENCED_PATROLLING.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
+						
 					case "Ordered Patrolling":
 						intentText.setText(CoreMovementPatterns.ORDERED_PATROLLING.getDescription());
-						// variation.setText(CoreMovementPatterns.ORDERED_PATROLLING.getVariations());
-						examples.setText(CoreMovementPatterns.ORDERED_PATROLLING.getExamples());
-						occurences.setText(CoreMovementPatterns.ORDERED_PATROLLING.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
+						
 					case "Strict Ordered Patrolling":
 						intentText.setText(CoreMovementPatterns.STRICT_ORDERED_PATROLLING.getDescription());
-						//// variation.setText(CoreMovementPatterns.STRICT_ORDERED_PATROLLING.getVariations());
-						examples.setText(CoreMovementPatterns.STRICT_ORDERED_PATROLLING.getExamples());
-						occurences.setText(CoreMovementPatterns.STRICT_ORDERED_PATROLLING.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
+						
 					case "Fair Patrolling":
 						intentText.setText(CoreMovementPatterns.FAIR_PATROLLING.getDescription());
-						//// variation.setText(CoreMovementPatterns.FAIR_PATROLLING.getVariations());
-						examples.setText(CoreMovementPatterns.FAIR_PATROLLING.getExamples());
-						occurences.setText(CoreMovementPatterns.FAIR_PATROLLING.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
-					// avoidance
-					// past avoidance
+						
 					case "Past Avoidance":
 						intentText.setText(Avoidance.PAST_AVOIDANCE.getDescription());
-						// variation.setText(Avoidance.PAST_AVOIDANCE.getVariations());
-						examples.setText(Avoidance.PAST_AVOIDANCE.getExamples());
-						occurences.setText(Avoidance.PAST_AVOIDANCE.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Future Avoidance":
 						intentText.setText(Avoidance.FUTURE_AVOIDANCE.getDescription());
-						// variation.setText(Avoidance.FUTURE_AVOIDANCE.getVariations());
-						examples.setText(Avoidance.FUTURE_AVOIDANCE.getExamples());
-						occurences.setText(Avoidance.FUTURE_AVOIDANCE.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 						break;
 					case "Global Avoidance":
 						intentText.setText(Avoidance.GLOBAL_AVOIDANCE.getDescription());
-						// variation.setText(Avoidance.GLOBAL_AVOIDANCE.getVariations());
-						examples.setText(Avoidance.GLOBAL_AVOIDANCE.getExamples());
-						occurences.setText(Avoidance.GLOBAL_AVOIDANCE.getOccurrences());
-						f1.removeAllItems();
-						f2.removeAllItems();
-
-						formulaeList1 = new DefaultComboBoxModel<String>();
-						formulaeList2 = new DefaultComboBoxModel<String>();
-
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList1.addElement(p.getKey()));
-						MissionLibrary.mapSpecificationFormula.entrySet().stream()
-								.forEach(p -> formulaeList2.addElement(p.getKey()));
-
-						f1.setModel(formulaeList1);
-						f2.setModel(formulaeList2);
+						showPatternView();
 					default:
 						break;
 					}
 				}
 
+			}
+
+			private void showComposeView() {
+
+				f1.removeAllItems();
+				f2.removeAllItems();
+
+				DefaultComboBoxModel<String> formulaeList1 = new DefaultComboBoxModel<String>();
+				DefaultComboBoxModel<String> formulaeList2 = new DefaultComboBoxModel<String>();
+
+				MissionLibrary.mapSpecificationFormula.entrySet().stream()
+						.forEach(p -> formulaeList1.addElement(p.getKey()));
+				MissionLibrary.mapSpecificationFormula.entrySet().stream()
+						.forEach(p -> formulaeList2.addElement(p.getKey()));
+
+				f1.setModel(formulaeList1);
+				f2.setModel(formulaeList2);
+
+				f1.setVisible(true);
+				f2.setVisible(true);
+				f1Label.setVisible(true);
+				f2Label.setVisible(true);
+
+				actionsOrLocationsLabel.setVisible(false);
+				availableActionsLabel.setVisible(false);
+				intentLabel.setVisible(false);
+				actionsAndLocations.setVisible(false);
+				dragAndDropJLabel.setVisible(false);
+				locationPanel.setVisible(false);
+				remotePanel.setVisible(false);
+				ltlFormula.setVisible(false);
+				intentText.setVisible(false);
+				examples.setVisible(false);
+				occurences.setVisible(false);
+			}
+			
+			private void showPatternView() {
+
+
+				f1Label.setVisible(false);
+				f2Label.setVisible(false);
+				f1.setVisible(false);
+				f2.setVisible(false);
+				actionsOrLocationsLabel.setVisible(true);
+				availableActionsLabel.setVisible(true);
+				intentLabel.setVisible(true);
+				actionsAndLocations.setVisible(true);
+				dragAndDropJLabel.setVisible(true);
+				locationPanel.setVisible(true);
+				remotePanel.setVisible(true);
+				ltlFormula.setVisible(true);
+				intentText.setVisible(true);
+				examples.setVisible(true);
+				occurences.setVisible(true);
 			}
 		});
 
@@ -691,7 +475,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		this.sendMission.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				if (locations.getText().equals(INIT_POSITION_MESSAGE)) {
+				if (locations.getText().equals(DRAG_AND_DROP_MESSAGE)) {
 					JOptionPane.showMessageDialog(null, "Insert the set of locations to be considered");
 				} else {
 					MissionSender sender = new MissionSender();
@@ -709,8 +493,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.subscribe.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()), actionsAndLocations,
-						actionsAndLocationsModel);
+				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()),
+						actionsAndLocations, actionsAndLocationsModel);
 				Thread t = new Thread(sub);
 				t.start();
 			}
@@ -718,7 +502,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.loadMission.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				if (locations.getText().equals(INIT_POSITION_MESSAGE)) {
+				if (locations.getText().equals(DRAG_AND_DROP_MESSAGE)) {
 					JOptionPane.showMessageDialog(null, "Insert the set of locations to be considered");
 
 				} else {
@@ -788,13 +572,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		locations = new JTextField(80);
 		locations.setDropMode(DropMode.INSERT);
-		//locations.setText("Drag here");
-	//	locations.setText(INIT_POSITION_MESSAGE);
 		locationPanel.setBackground(BACKGROUNDCOLOR);
 
 		locationPanel.add(locations);
 
-		
 		javax.swing.GroupLayout memotePalenlLayout = new javax.swing.GroupLayout(remotePanel);
 
 		JPanel p1 = new JPanel();
@@ -846,9 +627,9 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 				font, redCo4robots);
 		remotePanel.setBorder(titleBorder);
 
-		JLabel locationLabel = new JLabel("Actions or locations:");
-		locationLabel.setForeground(grayCo4robots);
-		locationLabel.setFont(fonttitle);
+		actionsOrLocationsLabel = new JLabel("Actions or locations:");
+		actionsOrLocationsLabel.setForeground(grayCo4robots);
+		actionsOrLocationsLabel.setFont(fonttitle);
 
 		ltlFormula = new JTextArea();
 		JLabel ltlLabel = new JLabel("LTL formula:");
@@ -858,11 +639,11 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		intentText = new JTextArea();
 		intentText.setLineWrap(true);
 
-		JLabel intentLabel = new JLabel("Intent:");
+		intentLabel = new JLabel("Intent:");
 		intentLabel.setForeground(grayCo4robots);
 		intentLabel.setFont(fonttitle);
 
-		JLabel availableActionsLabel = new JLabel("Available actions or locations:");
+		availableActionsLabel = new JLabel("Available actions or locations:");
 		availableActionsLabel.setForeground(grayCo4robots);
 		availableActionsLabel.setFont(fonttitle);
 
@@ -884,19 +665,17 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		occuttencesTitle.setTitlePosition(TitledBorder.RIGHT);
 		occurences.setBorder(occuttencesTitle);
 
-		
 		JScrollPane p = new JScrollPane(missionLibrary);
 		missionLibrary.setBackground(grayCo4robots);
 		p.setBackground(grayCo4robots);
 		missionLibrary.setForeground(Color.white);
-		
+
 		TitledBorder missionLibraryBorder = javax.swing.BorderFactory.createTitledBorder(null, "Missions Library", 2, 2,
 				font, redCo4robots);
 
 		missionLibraryPanel.setBorder(missionLibraryBorder);
 		missionLibraryPanel.setBackground(BACKGROUNDCOLOR);
-		//missionLibraryPanel.add(p);
-
+		// missionLibraryPanel.add(p);
 
 		javax.swing.GroupLayout lay2 = new javax.swing.GroupLayout(missionLibraryPanel);
 		lay2.setHorizontalGroup(lay2.createSequentialGroup().addComponent(p));
@@ -955,28 +734,45 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout lay = new javax.swing.GroupLayout(patternPanel);
 
-		JLabel help=new JLabel(INIT_POSITION_MESSAGE);
+		this.f1 = new JComboBox<String>();
+		this.f2 = new JComboBox<String>();
+
+		f1Label = new JLabel("Formula f1:");
+		f1Label.setForeground(grayCo4robots);
+		f1Label.setFont(fonttitle);
+		f1Label.setVisible(false);
+
+		f2Label = new JLabel("Formula f2:");
+		f2Label.setForeground(grayCo4robots);
+		f2Label.setFont(fonttitle);
+		f2Label.setVisible(false);
+
+		TitledBorder movementPatternTitle = BorderFactory.createTitledBorder("Property  List");
+		movementPatternTitle.setTitlePosition(TitledBorder.RIGHT);
+
+		dragAndDropJLabel = new JLabel(DRAG_AND_DROP_MESSAGE);
 		lay.setHorizontalGroup(lay.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(patternCategoryLabel)
 				.addComponent(patternCategorySelector).addComponent(patternLabel).addComponent(patternBoxSelector)
-				.addComponent(locationLabel).addComponent(locationPanel).addComponent(help).addComponent(availableActionsLabel)
-				.addComponent(actionAvailable).addComponent(ltlLabel).addComponent(ltlFormula).addComponent(intentLabel)
-				.addComponent(intentText).addComponent(f1).addComponent(f2).addComponent(this.loadMission));
+				.addComponent(actionsOrLocationsLabel).addComponent(locationPanel).addComponent(dragAndDropJLabel)
+				.addComponent(availableActionsLabel).addComponent(actionAvailable).addComponent(f1Label)
+				.addComponent(f1).addComponent(f2Label).addComponent(f2).addComponent(ltlLabel).addComponent(ltlFormula)
+				.addComponent(intentLabel).addComponent(intentText).addComponent(this.loadMission));
 
 		lay.setVerticalGroup(lay.createSequentialGroup().addComponent(patternCategoryLabel)
 				.addComponent(patternCategorySelector).addComponent(patternLabel).addComponent(patternBoxSelector)
-				.addComponent(locationLabel).addComponent(locationPanel).addComponent(help).addComponent(availableActionsLabel)
-				.addComponent(actionAvailable).addComponent(ltlLabel).addComponent(ltlFormula).addComponent(intentLabel)
-				.addComponent(intentText).addComponent(f1).addComponent(f2).addComponent(this.loadMission));
+				.addComponent(actionsOrLocationsLabel).addComponent(locationPanel).addComponent(dragAndDropJLabel)
+				.addComponent(availableActionsLabel).addComponent(actionAvailable).addComponent(f1Label)
+				.addComponent(f1).addComponent(f2Label).addComponent(f2).addComponent(ltlLabel).addComponent(ltlFormula)
+				.addComponent(intentLabel).addComponent(intentText).addComponent(this.loadMission));
 
 		patternPanel.setLayout(lay);
 
 		f1.setVisible(false);
 		f2.setVisible(false);
 
+		setBounds(0, 0, (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
 
-		
-		setBounds(0, 0, (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-		
 		this.getContentPane().setBackground(BACKGROUNDCOLOR);
 		this.getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 
@@ -1038,8 +834,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + "("
 					+ f1.getSelectedItem() + ", " + f2.getSelectedItem() + ")", computedltlformula);
 
-			
-			FORMULA_COUNTER = FORMULA_COUNTER + 1;
 			break;
 		case "Avoidance":
 			Avoidance p = Avoidance.valueOf(selectedIdem.toUpperCase().replaceAll(" ", "_"));
@@ -1058,7 +852,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			List<String> array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
 			String[] d = new String[array.size()];
 			array.toArray(d);
-			FORMULA_COUNTER = FORMULA_COUNTER + 1;
 
 			break;
 		case "Core Movement":
@@ -1095,13 +888,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
 			d = new String[array.size()];
 			array.toArray(d);
-		
-			FORMULA_COUNTER = FORMULA_COUNTER + 1;
+
 		default:
 			break;
 		}
-
-		System.out.println(MissionLibrary.mapSpecificationFormula.keySet());
 
 		missionLibraryModel = new DefaultListModel<>();
 		for (Entry<String, LTLFormula> e : MissionLibrary.mapSpecificationFormula.entrySet()) {
@@ -1110,7 +900,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		missionLibrary.setModel(missionLibraryModel);
 		missionLibrary.setModel(missionLibraryModel);
-		System.out.println("End load mission"+missionLibraryModel);
+		System.out.println("End load mission" + missionLibraryModel);
 
 		missionLibrary.repaint();
 		missionLibrary.repaint();
