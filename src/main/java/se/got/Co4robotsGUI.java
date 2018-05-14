@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -106,12 +107,10 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	public Co4robotsGUI(String ip, String port) {
 		super();
-		
-
+	
 		list.setModel(listModel);
 
-		this.getContentPane().setBackground(BACKGROUNDCOLOR);
-
+		
 		UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
 
 		patternItems = new DefaultComboBoxModel<>();
@@ -890,7 +889,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		missionLibraryPanel.setBorder(missionLibraryBorder);
 		missionLibraryPanel.setBackground(BACKGROUNDCOLOR);
-		
 		//missionLibraryPanel.add(p);
 
 
@@ -968,7 +966,13 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		f1.setVisible(false);
 		f2.setVisible(false);
 
-		setBounds(0, 0, FRAME_INIT_WIDTH, FRAME_INIT_HEIGTH);
+
+		
+		setBounds(0, 0, (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(), (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+		
+		this.getContentPane().setBackground(BACKGROUNDCOLOR);
+		this.getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
 		setVisible(false);
 		this.setBackground(BACKGROUNDCOLOR);
 		this.getContentPane().setBackground(BACKGROUNDCOLOR);

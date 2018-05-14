@@ -6,7 +6,7 @@ PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 applicat
 
 
 
-<a href="http://178.62.206.217/patterns/PARING.mp4" target="_blank"><img src="img.png" /></a>
+<a href="http://178.62.206.217/patterns/PARING.mp4" target="_blank"><img src="src/main/resources/images/img.png" /></a>
 
 
 ## An overview on PsAlMISt
