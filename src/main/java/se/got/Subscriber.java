@@ -28,16 +28,16 @@ public class Subscriber implements Runnable {
 		System.out.println("Subscribing to the publisher with IP:" + ip + "\t on the PORT: " + port);
 		Socket socket;
 		try {
-			//socket = new Socket(ip, port);
+			socket = new Socket(ip, port);
 
 			int j=0;
-			//Scanner scanner = new Scanner(socket.getInputStream());
+			Scanner scanner = new Scanner(socket.getInputStream());
 			while (j<2) {
 				j++;
 				// Read envelope with address
-				//String message = scanner.nextLine();
+				String message = scanner.nextLine();
 				
-				String message="locations [l1,l2,l3]";
+				//String message="locations [l1,l2,l3]";
 				System.out.println("Subscriber, new message received: " + message);
 
 				String messageType = message.substring(0, message.indexOf(" "));
