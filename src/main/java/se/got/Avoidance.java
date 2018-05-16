@@ -10,6 +10,7 @@ import se.got.ltl.LTLIGlobally;
 import se.got.ltl.LTLIImplies;
 import se.got.ltl.LTLINegation;
 import se.got.ltl.LTLIUntil;
+import se.got.ltl.LTLNext;
 import se.got.ltl.atoms.LTLIPropositionalAtom;
 
 public enum Avoidance {
@@ -17,8 +18,9 @@ public enum Avoidance {
 	PAST_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Past Avoidance";
+			return "Past_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) throws Exception {
 			if (!(locations.length == 2)) {
@@ -58,11 +60,13 @@ public enum Avoidance {
 	GLOBAL_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Global Avoidance";
+			return "Global_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) {
-			LTLFormula f = Arrays.stream(locations).map(a -> (LTLFormula) new LTLINegation(new LTLIPropositionalAtom(a)))
+			LTLFormula f = Arrays.stream(locations)
+					.map(a -> (LTLFormula) new LTLINegation(new LTLIPropositionalAtom(a)))
 					.reduce(LTLFormula.TRUE, conjunctionOperator);
 
 			return new LTLIGlobally(f);
@@ -97,8 +101,9 @@ public enum Avoidance {
 	FUTURE_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Future Avoidance";
+			return "Future_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) throws Exception {
 			if (!(locations.length == 2)) {
@@ -136,12 +141,22 @@ public enum Avoidance {
 	LOWER_RESTRICTED_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Lower Restricted Avoidance";
+			return "Lower_Restricted_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) {
-			// TODO Auto-generated method stub
-			return null;
+
+			int num = Integer.parseInt(locations[1]);
+
+			String location = locations[0];
+
+			LTLFormula f = LTLFormula.TRUE;
+			for (int i = 0; i < num; i++) {
+				f = new LTLEventually(new LTLConjunction(new LTLIPropositionalAtom(location), new LTLNext(f)));
+			}
+
+			return f;
 		}
 
 		@Override
@@ -172,12 +187,21 @@ public enum Avoidance {
 	UPPER_RESTRICTED_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Upper Restricted Avoidance";
+			return "Upper_Restricted_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) {
-			// TODO Auto-generated method stub
-			return null;
+			int num = Integer.parseInt(locations[1]);
+
+			String location = locations[0];
+
+			LTLFormula f = LTLFormula.TRUE;
+			for (int i = 0; i < num; i++) {
+				f = new LTLEventually(new LTLConjunction(new LTLIPropositionalAtom(location), new LTLNext(f)));
+			}
+
+			return new LTLINegation(f);
 		}
 
 		@Override
@@ -208,12 +232,23 @@ public enum Avoidance {
 	EXACT_RESTRICTED_AVOIDANCE {
 		@Override
 		public String toString() {
-			return "Exact Restricted Avoidance";
+			return "Exact_Restricted_Avoidance";
 		}
+
 		@Override
 		public LTLFormula getMission(String[] locations) {
-			// TODO Auto-generated method stub
-			return null;
+			
+			int num = Integer.parseInt(locations[1]);
+
+			String location = locations[0];
+
+			LTLFormula f = new LTLIGlobally(new LTLINegation(new LTLIPropositionalAtom(location)));
+			for (int i = 0; i < num; i++) {
+				f = new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(location)), new LTLNext(f));
+			}
+
+			return f;
+
 		}
 
 		@Override

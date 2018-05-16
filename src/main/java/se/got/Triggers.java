@@ -53,7 +53,7 @@ public enum Triggers {
 
 		@Override
 		public String toString() {
-			return "Instantaneous Reaction";
+			return "Instantaneous_Reaction";
 		}
 		@Override
 		public String getDescription() {
@@ -88,7 +88,7 @@ public enum Triggers {
 	DELAYED_REACTION {
 		@Override
 		public String toString() {
-			return "Delayed Reaction";
+			return "Delayed_Reaction";
 		}
 
 		@Override

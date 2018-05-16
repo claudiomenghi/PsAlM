@@ -480,7 +480,7 @@ public class PatternSelectionPanel extends JPanel {
 
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + "("
+			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + " ("
 					+ f1.getSelectedItem() + ", " + f2.getSelectedItem() + ")", computedltlformula);
 
 			break;
@@ -492,7 +492,7 @@ public class PatternSelectionPanel extends JPanel {
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
 			MissionLibrary.mapSpecificationFormula.put(
-					(String) patternBoxSelector.getSelectedItem() + "(" + locations.getText() + ")",
+					(String) patternBoxSelector.getSelectedItem() + " (" + locations.getText() + ")",
 					computedltlformula);
 
 			List<String> array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());
@@ -512,7 +512,7 @@ public class PatternSelectionPanel extends JPanel {
 			array.toArray(d);
 
 			MissionLibrary.mapSpecificationFormula.put(
-					(String) patternBoxSelector.getSelectedItem() + "(" + locations.getText() + ")",
+					(String) patternBoxSelector.getSelectedItem() + " (" + locations.getText() + ")",
 					computedltlformula);
 
 			break;
@@ -525,7 +525,7 @@ public class PatternSelectionPanel extends JPanel {
 
 			ltlFormula.setText(computedltlformula.accept(new LTLFormulaToStringVisitor()));
 
-			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + "("
+			MissionLibrary.mapSpecificationFormula.put((String) patternBoxSelector.getSelectedItem() + " ("
 					+ f1.getSelectedItem() + ", " + f2.getSelectedItem() + ")", computedltlformula);
 
 			array = new ArrayList<String>(MissionLibrary.mapSpecificationFormula.keySet());

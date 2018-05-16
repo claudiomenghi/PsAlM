@@ -57,7 +57,7 @@ public enum CoreMovementPatterns {
 	SEQUENCED_VISIT {
 		@Override
 		public String toString() {
-			return "Sequenced Visit";
+			return "Sequenced_Visit";
 		}
 
 		@Override
@@ -100,7 +100,7 @@ public enum CoreMovementPatterns {
 	ORDERED_VISIT {
 		@Override
 		public String toString() {
-			return "Ordered Visit";
+			return "Ordered_Visit";
 		}
 
 		@Override
@@ -147,7 +147,7 @@ public enum CoreMovementPatterns {
 	STRICT_ORDERED_VISIT {
 		@Override
 		public String toString() {
-			return "Strict Ordered Visit";
+			return "Strict_Ordered_Visit";
 		}
 
 		@Override
@@ -203,7 +203,7 @@ public enum CoreMovementPatterns {
 	FAIR_VISIT {
 		@Override
 		public String toString() {
-			return "Fair Visit";
+			return "Fair_Visit";
 		}
 
 		@Override
@@ -296,7 +296,7 @@ public enum CoreMovementPatterns {
 	SEQUENCED_PATROLLING {
 		@Override
 		public String toString() {
-			return "Sequenced Patrolling";
+			return "Sequenced_Patrolling";
 		}
 
 		@Override
@@ -332,7 +332,7 @@ public enum CoreMovementPatterns {
 	ORDERED_PATROLLING {
 		@Override
 		public String toString() {
-			return "Ordered Patrolling";
+			return "Ordered_Patrolling";
 		}
 
 		@Override
@@ -378,7 +378,7 @@ public enum CoreMovementPatterns {
 	STRICT_ORDERED_PATROLLING {
 		@Override
 		public String toString() {
-			return "Strict Ordered Patrolling";
+			return "Strict_Ordered_Patrolling";
 		}
 
 		@Override
@@ -434,7 +434,7 @@ public enum CoreMovementPatterns {
 	FAIR_PATROLLING {
 		@Override
 		public String toString() {
-			return "Fair Patrolling";
+			return "Fair_Patrolling";
 		}
 
 		@Override

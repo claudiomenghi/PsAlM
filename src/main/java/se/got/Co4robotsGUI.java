@@ -6,42 +6,27 @@ package se.got;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
-import javax.swing.DropMode;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ColorUIResource;
 
-import se.got.ltl.LTLFormula;
 import se.got.ltl.visitors.LTLFormulaToStringVisitor;
+import se.got.panels.MissionLibraryRender;
 import se.got.panels.PatternSelectionPanel;
 
 public class Co4robotsGUI extends javax.swing.JFrame {
@@ -292,6 +277,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		remotePanel.setBorder(titleBorder);
 
 		JScrollPane p = new JScrollPane(missionLibrary);
+		missionLibrary.setCellRenderer(new MissionLibraryRender());
 		missionLibrary.setBackground(grayCo4robots);
 		p.setBackground(grayCo4robots);
 		missionLibrary.setForeground(Color.white);
@@ -332,7 +318,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 
 		setVisible(false);
-		
 
 		this.setBackground(BACKGROUNDCOLOR);
 		this.getContentPane().setBackground(BACKGROUNDCOLOR);
