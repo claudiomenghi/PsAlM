@@ -44,13 +44,7 @@ public class MissionLibraryRender extends DefaultListCellRenderer {
 
 		try {
 			String val = (String) value;
-			// File f= new File(getClass().getClassLoader().("images/"+val.substring(0,
-			// val.indexOf(" "))+".png").getPath());
-			// if(f.exists()){
-			System.out.println("Loading image: " + "images/" + val.substring(0, val.indexOf(" ")) + ".png");
-			// System.out.println("Path: "+getClass().getResource("images/"+val.substring(0,
-			// val.indexOf(" "))+".png").toURI());
-
+		
 			icon = new ImageIcon(ImageIO.read(getClass().getClassLoader()
 					.getResourceAsStream("images/" + val.substring(0, val.indexOf(" ")) + ".png")));
 			Image image = icon.getImage(); // transform it

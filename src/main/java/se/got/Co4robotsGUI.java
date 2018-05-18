@@ -18,6 +18,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -26,6 +27,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ColorUIResource;
 
 import se.got.ltl.visitors.LTLFormulaToStringVisitor;
+import se.got.panels.MissionLibraryPanel;
 import se.got.panels.MissionLibraryRender;
 import se.got.panels.PatternSelectionPanel;
 
@@ -39,16 +41,17 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	public static DefaultListModel<String> missionLibraryModel = new DefaultListModel<>();
 	public static JList<String> missionLibrary = new JList<String>();
 
+	public static String currentMission = "";
+
 	private static JTextField ipTextField;
 	private static JTextField portTextField;
 	private static JTextField publisherportTextField;
-
-	private static JPanel missionLibraryPanel = new JPanel();
 
 	private JPanel remotePanel;
 	private javax.swing.JButton sendMission;
 	private javax.swing.JButton subscribe;
 
+	public static JLabel selectedMissionJLabel;
 	private javax.swing.JButton fEE;
 	private javax.swing.JCheckBox fEName;
 	private javax.swing.JCheckBox fESpec;
@@ -156,12 +159,19 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.sendMission.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				MissionSender sender = new MissionSender();
-				try {
-					sender.send(patternSelectionPanel.loadMission().accept(new LTLFormulaToStringVisitor()),
-							ipTextField.getText(), portTextField.getText());
-				} catch (Exception e) {
-					e.printStackTrace();
+				if(Co4robotsGUI.selectedMissionJLabel.getText().equals("No mission selected")) {
+					JOptionPane.showMessageDialog(null, "No mission selected"); 
+				}
+				else {
+					
+					MissionSender sender = new MissionSender();
+					try {
+						sender.send(
+								MissionLibrary.mapSpecificationFormula.get(Co4robotsGUI.currentMission).accept(new LTLFormulaToStringVisitor()),
+								ipTextField.getText(), portTextField.getText());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 
@@ -239,7 +249,18 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		JPanel p3 = new JPanel();
 		p3.setBackground(BACKGROUNDCOLOR);
 		p3.add(portTextField);
+		
+		JLabel missionJLabel = new JLabel("Mission:");
+		missionJLabel.setForeground(grayCo4robots);
+		missionJLabel.setFont(fonttitle);
 
+		selectedMissionJLabel = new JLabel("No mission selected");
+		
+		JPanel p4 = new JPanel();
+		p4.setBackground(BACKGROUNDCOLOR);
+		p4.add(missionJLabel);
+		p4.add(selectedMissionJLabel);
+		
 		JPanel clientServer = new JPanel();
 		clientServer.setBackground(BACKGROUNDCOLOR);
 		FlowLayout f = new FlowLayout();
@@ -260,12 +281,13 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		pubSub.add(this.subscribe);
 
 		memotePalenlLayout.setHorizontalGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(p4))
 				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(clientServer))
 				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(pubSub)));
 
 		memotePalenlLayout.setVerticalGroup(memotePalenlLayout.createSequentialGroup()
-				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-						.addComponent(clientServer))
+				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(p4))
+				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(clientServer))
 				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(pubSub)));
 
 		remotePanel.setLayout(memotePalenlLayout);
@@ -276,25 +298,12 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 				font, redCo4robots);
 		remotePanel.setBorder(titleBorder);
 
-		JScrollPane p = new JScrollPane(missionLibrary);
 		missionLibrary.setCellRenderer(new MissionLibraryRender());
 		missionLibrary.setBackground(grayCo4robots);
-		p.setBackground(grayCo4robots);
 		missionLibrary.setForeground(Color.white);
 
-		TitledBorder missionLibraryBorder = javax.swing.BorderFactory.createTitledBorder(null, "Missions Library", 2, 2,
-				font, redCo4robots);
 
-		missionLibraryPanel.setBorder(missionLibraryBorder);
-		missionLibraryPanel.setBackground(BACKGROUNDCOLOR);
-		// missionLibraryPanel.add(p);
-
-		javax.swing.GroupLayout lay2 = new javax.swing.GroupLayout(missionLibraryPanel);
-		lay2.setHorizontalGroup(lay2.createSequentialGroup().addComponent(p));
-		lay2.setVerticalGroup(lay2.createSequentialGroup().addComponent(p));
-
-		missionLibraryPanel.setLayout(lay2);
-
+		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
 		mainPanel.setLayout(layout);
 
@@ -302,6 +311,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		layout.setAutoCreateContainerGaps(true);
 
 		layout.createSequentialGroup();
+		
+		MissionLibraryPanel missionLibraryPanel=new MissionLibraryPanel(missionLibrary, missionLibraryModel);
 
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jPanelLogo)
 				.addGroup(layout.createParallelGroup().addComponent(remotePanel).addComponent(patternSelectionPanel)

@@ -9,7 +9,7 @@ package se.got.ltl;
  *            the type of the sub-formulae
  */
 @FunctionalInterface
-public interface UnaryFormula<T extends Formula> {
+public interface UnaryFormula<T extends Formula> extends java.io.Serializable {
 
 	/**
 	 * returns the child of the formula

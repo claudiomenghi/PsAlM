@@ -8,7 +8,7 @@ package se.got.ltl;
  * @param <T>
  *            the type of the sub-formulae
  */
-public interface BinaryFormula<T> {
+public interface BinaryFormula<T> extends java.io.Serializable {
 
 	/**
 	 * returns the left child of the formula
