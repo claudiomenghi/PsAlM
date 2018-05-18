@@ -26,7 +26,7 @@ A publish subscribe architecture is used to the remote application to notify the
 * Requirements: at least the Java version 1.8 must be installed on your laptop
 * [Download](https://github.com/claudiomenghi/PsAlMISt/releases) the last version of PsAlMISt
 * Double click on the downloaded jar
-
+* If you want to use PsAlMISt with ROS, you can use for example a Rest2Ros component [https://github.com/claudiomenghi/Rest2Ros](https://github.com/claudiomenghi/Rest2Ros) that can be integrated with LTL planners such as [https://github.com/MengGuo/tiago_ltl_flexbe](https://github.com/MengGuo/tiago_ltl_flexbe)
 
 
 
