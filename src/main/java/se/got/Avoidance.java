@@ -147,13 +147,18 @@ public enum Avoidance {
 		@Override
 		public LTLFormula getMission(String[] locations) {
 
-			int num = Integer.parseInt(locations[1]);
-
+			int num=0;
+			try {
+			 num = Integer.parseInt(locations[1]);
+			}
+			catch (NumberFormatException e) {
+				throw new NumberFormatException("The second parameter should be an integer number");
+			}
 			String location = locations[0];
 
 			LTLFormula f = LTLFormula.TRUE;
 			for (int i = 0; i < num; i++) {
-				f = new LTLEventually(new LTLConjunction(new LTLIPropositionalAtom(location), new LTLNext(f)));
+				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(location), LTLFormula.next(f)));
 			}
 
 			return f;
@@ -198,7 +203,7 @@ public enum Avoidance {
 
 			LTLFormula f = LTLFormula.TRUE;
 			for (int i = 0; i < num; i++) {
-				f = new LTLEventually(new LTLConjunction(new LTLIPropositionalAtom(location), new LTLNext(f)));
+				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(location), LTLFormula.next(f)));
 			}
 
 			return new LTLINegation(f);
@@ -244,7 +249,10 @@ public enum Avoidance {
 
 			LTLFormula f = new LTLIGlobally(new LTLINegation(new LTLIPropositionalAtom(location)));
 			for (int i = 0; i < num; i++) {
-				f = new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(location)), new LTLNext(f));
+				f = new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(location)), 
+						LTLFormula.and(
+						new LTLIPropositionalAtom(location),
+						LTLFormula.next(f)));
 			}
 
 			return f;
@@ -298,6 +306,6 @@ public enum Avoidance {
 		if (right.equals(LTLFormula.TRUE)) {
 			return left;
 		}
-		return new LTLConjunction(left, right);
+		return LTLFormula.and(left, right);
 	};
 }

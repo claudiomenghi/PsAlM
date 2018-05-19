@@ -45,6 +45,6 @@ public enum Composition {
 		if (right.equals(LTLFormula.TRUE)) {
 			return left;
 		}
-		return new LTLConjunction(left, right);
+		return LTLFormula.and(left, right);
 	};
 }

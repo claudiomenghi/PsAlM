@@ -55,7 +55,9 @@ public abstract class LTLFormula extends Formula {
 			if (f.equals(LTLFormula.TRUE)) {
 				f = formulae[i];
 			} else {
-				f = new LTLConjunction(f, formulae[i]);
+				if (!formulae[i].equals(LTLFormula.TRUE)) {
+					f = new LTLConjunction(f, formulae[i]);
+				}
 			}
 		}
 		return f;
@@ -87,6 +89,13 @@ public abstract class LTLFormula extends Formula {
 
 	public static LTLFormula iff(LTLFormula f1, LTLFormula f2) {
 		return new LTLIIff(f1, f2);
+	}
+
+	public static LTLFormula next(LTLFormula f) {
+		if (f.equals(LTLFormula.TRUE)) {
+			return f;
+		}
+		return new LTLNext(f);
 	}
 
 	// Producers method to build derived temporal CLTL formulae

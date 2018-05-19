@@ -118,7 +118,7 @@ public enum Triggers {
 
 		@Override
 		public LTLFormula getMission(LTLFormula f1, LTLFormula f2) {
-			return new LTLIGlobally(new LTLIImplies(f1, new LTLNext(new LTLEventually(f2))));
+			return new LTLIGlobally(new LTLIImplies(f1, LTLFormula.next(new LTLEventually(f2))));
 		}
 	};
 
@@ -143,6 +143,6 @@ public enum Triggers {
 		if (right.equals(LTLFormula.TRUE)) {
 			return left;
 		}
-		return new LTLConjunction(left, right);
+		return LTLFormula.and(left, right);
 	};
 }

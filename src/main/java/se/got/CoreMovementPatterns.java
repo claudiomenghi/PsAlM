@@ -29,6 +29,7 @@ public enum CoreMovementPatterns {
 
 		}
 
+
 		@Override
 		public String getDescription() {
 			return "A robot must visit an area or a set of areas. This area can be a set of locations of a building, or a set of points of interest on a map that must be surveyed.";
@@ -66,7 +67,7 @@ public enum CoreMovementPatterns {
 			LTLFormula f = new LTLEventually(new LTLIPropositionalAtom(loc.get(loc.size() - 1)));
 
 			for (int index = loc.size() - 2; index >= 0; index--) {
-				f = new LTLEventually(new LTLConjunction(new LTLIPropositionalAtom(loc.get(index)), f));
+				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(loc.get(index)), f));
 			}
 			return f;
 
@@ -116,7 +117,7 @@ public enum CoreMovementPatterns {
 				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
 						new LTLIPropositionalAtom(loc.get(index-1))));
 			}
-			return new LTLConjunction(f, f1);
+			return LTLFormula.and(f, f1);
 		}
 
 		@Override
@@ -162,7 +163,7 @@ public enum CoreMovementPatterns {
 						new LTLIGlobally(
 								new LTLIImplies(
 										new LTLIPropositionalAtom(loc.get(index)),
-										new LTLNext(
+										LTLFormula.next(
 												new LTLIUntil(
 														new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
 														new LTLIPropositionalAtom(loc.get(index+1))
@@ -172,7 +173,7 @@ public enum CoreMovementPatterns {
 								)
 					);
 			}
-			return new LTLConjunction(f, f1);
+			return LTLFormula.and(f, f1);
 		}
 
 		@Override
@@ -229,7 +230,7 @@ public enum CoreMovementPatterns {
 
 						)));
 			}
-			return new LTLConjunction(f, f1);
+			return LTLFormula.and(f, f1);
 		}
 
 		@Override
@@ -347,7 +348,7 @@ public enum CoreMovementPatterns {
 				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
 						new LTLIPropositionalAtom(loc.get(index-1))));
 			}
-			return new LTLConjunction(f, f1);
+			return LTLFormula.and(f, f1);
 		}
 
 		@Override
@@ -393,7 +394,7 @@ public enum CoreMovementPatterns {
 						new LTLIGlobally(
 								new LTLIImplies(
 										new LTLIPropositionalAtom(loc.get(index)),
-										new LTLNext(
+										LTLFormula.next(
 												new LTLIUntil(
 														new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
 														new LTLIPropositionalAtom(loc.get(index+1))
@@ -403,7 +404,7 @@ public enum CoreMovementPatterns {
 								)
 					);
 			}
-			return new LTLConjunction(f, f1);
+			return LTLFormula.and(f, f1);
 		}
 
 		@Override
@@ -454,7 +455,7 @@ public enum CoreMovementPatterns {
 				f2 = LTLFormula.and(f2, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
 						new LTLIPropositionalAtom(loc.get(index + 1))));
 			}
-			return new LTLConjunction(f, new LTLConjunction(f2, f1));
+			return LTLFormula.and(f, LTLFormula.and(f2, f1));
 
 		}
 
@@ -504,7 +505,7 @@ public enum CoreMovementPatterns {
 		if (right.equals(LTLFormula.TRUE)) {
 			return left;
 		}
-		return new LTLConjunction(left, right);
+		return LTLFormula.and(left, right);
 	};
 
 }

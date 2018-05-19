@@ -6,7 +6,7 @@ import java.util.Set;
 import se.got.ltl.LTLFormula;
 import se.got.ltl.visitors.MITLIVisitor;
 
-public class MITLITrue extends MITLIAtom {
+public class MITLITrue extends LTLAtom {
 
 	private final String atomName;
 	private final int hash;

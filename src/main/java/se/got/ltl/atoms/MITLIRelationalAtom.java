@@ -8,7 +8,7 @@ import com.google.common.base.Preconditions;
 import se.got.ltl.LTLFormula;
 import se.got.ltl.visitors.MITLIVisitor;
 
-public class MITLIRelationalAtom extends MITLIAtom {
+public class MITLIRelationalAtom extends LTLAtom {
 
 	
 

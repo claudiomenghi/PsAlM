@@ -181,7 +181,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
 				sub = new Subscriber(ipTextField.getText(), Integer.parseInt(publisherportTextField.getText()),
-						PatternSelectionPanel.actionsAndLocations, PatternSelectionPanel.actionsAndLocationsModel);
+						PatternSelectionPanel.availableActions, PatternSelectionPanel.actionsModel);
 				Thread t = new Thread(sub);
 				t.start();
 			}

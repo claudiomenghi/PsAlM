@@ -1,20 +1,13 @@
 package se.got.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.swing.BoxLayout;
@@ -28,9 +21,7 @@ import javax.swing.border.TitledBorder;
 
 import se.got.Co4robotsGUI;
 import se.got.MissionLibrary;
-import se.got.MissionSender;
 import se.got.ltl.LTLFormula;
-import se.got.ltl.visitors.LTLFormulaToStringVisitor;
 
 public class MissionLibraryPanel extends JPanel {
 

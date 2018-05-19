@@ -16,7 +16,7 @@ public class LTLConjunction extends LTLFormula implements BinaryFormula<LTLFormu
 
 	private final String operator = "AND";
 
-	public LTLConjunction(LTLFormula leftChild, LTLFormula rightChild) {
+	protected LTLConjunction(LTLFormula leftChild, LTLFormula rightChild) {
 
 		super();
 		Preconditions.checkNotNull(leftChild, "The first subformula cannot be null");
