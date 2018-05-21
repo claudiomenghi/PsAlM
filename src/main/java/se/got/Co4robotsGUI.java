@@ -159,6 +159,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.sendMission.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
+				
 				if(Co4robotsGUI.selectedMissionJLabel.getText().equals("No mission selected")) {
 					JOptionPane.showMessageDialog(null, "No mission selected"); 
 				}

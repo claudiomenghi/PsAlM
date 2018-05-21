@@ -6,12 +6,12 @@ import java.util.Set;
 import se.got.ltl.LTLFormula;
 import se.got.ltl.visitors.MITLIVisitor;
 
-public class MITLITrue extends LTLAtom {
+public class LTLTrue extends LTLAtom {
 
 	private final String atomName;
 	private final int hash;
 
-	public MITLITrue() {
+	public LTLTrue() {
 		this.atomName = new String("TRUE");
 		this.hash = this.generateHash();
 	}
@@ -50,7 +50,7 @@ public class MITLITrue extends LTLAtom {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MITLITrue other = (MITLITrue) obj;
+		LTLTrue other = (LTLTrue) obj;
 		if (atomName == null) {
 			if (other.atomName != null)
 				return false;

@@ -7,13 +7,13 @@ import com.google.common.base.Preconditions;
 
 import se.got.ltl.visitors.MITLIVisitor;
 
-public class LTLIDisjunction extends LTLFormula implements BinaryFormula<LTLFormula> {
+public class LTLDisjunction extends LTLFormula implements BinaryFormula<LTLFormula> {
 
 	private final LTLFormula leftChild;
 	private final LTLFormula rightChild;
 	private final String operator = "OR";
 
-	public LTLIDisjunction(LTLFormula leftChild, LTLFormula rightChild) {
+	public LTLDisjunction(LTLFormula leftChild, LTLFormula rightChild) {
 		super();
 		Preconditions.checkNotNull(leftChild, "The first subformula cannot be null");
 		Preconditions.checkNotNull(rightChild, "The second subformula cannot be null");
@@ -69,7 +69,7 @@ public class LTLIDisjunction extends LTLFormula implements BinaryFormula<LTLForm
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LTLIDisjunction other = (LTLIDisjunction) obj;
+		LTLDisjunction other = (LTLDisjunction) obj;
 		if (leftChild == null) {
 			if (other.leftChild != null)
 				return false;

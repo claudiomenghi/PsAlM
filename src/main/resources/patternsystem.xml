@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<patternsystem>
+	<category name="Core_Movement">
+		<pattern name="Visit">
+			<mission>
+				AND_[li in {l1,l2,...,ln}] F(li)   
+			</mission>
+			<description>
+			A robot must visit an area or a set of areas. This area can be a set of locations of a building, or a set of points of interest on a map that must be surveyed.
+			</description>
+			<variations>
+			If a relational notion of space is used, propositions have the form \"r in l\" where in indicates that the robot r is inside location l, while l identifies the desired location. If an absolute notion of space is used, propositions have the form \"r at (x,y,z)\" where at indicates that the robot r is in a specific point and (x,y,z) indicates a precise position in space. A variation can be obtained where not all the areas in the set must be visited. In this case, it is sufficient to replace the AND operator with an OR.
+			</variations>
+			<examples>
+			A common usage example of the Visit pattern is a scenario in which a robot has to collect a set of items that are placed in different locations and bring them in a target destination. Visit and Avoidance patterns often go together. Avoidance patterns are used e.g. to require robots to avoid obstacles as they guard an area. Trigger patterns can also be used in combination with the Visit pattern to specify conditions upon which Visit should start or stop.
+			</examples>
+			<relationships>
+			The Visit pattern generalizes most of the core movement patterns that constrain how locations are visited.
+			</relationships>
+			<occurrences>
+			Yoo et al. and Kress-Gazit et al. formulate an LTL mission specification to ensure that a set of areas are visited. In the first case, the visiting pattern is combined with the specification of past and future avoidance mission requirements. In the second case, an LTL mission specification is provided to describe the following mission requirement: the robot must go to rooms $P1$, $P2$, $P3$ and $P4$ in any order.
+			</occurrences>
+		</pattern>
+		<pattern name="Sequenced_Visit">
+			<mission>
+			</mission>
+			<description>
+			Given a set of areas A the robot(s) should visit all the areas in the set A in sequence.
+			</description>
+			<variations>
+			If a relational notion of space is used, propositions have the form \"r in l\" where in indicates that the robot r is inside location l and l identifies the desired location. If an absolute notion of space is used, propositions have the form \"r at (x,y,z)\" where at indicates that the robot r is in a specific point and (x,y,z) indicates a precise position in space.
+			</variations>
+			<examples>
+			This problem is also indicated in literature as reach, cover, or search, meaning that a robot should reach, cover or search a set areas or points, one following the other. This sequence may reflect e.g., a traversal strategy. Note that given two areas a and b that must be visited in sequence by a robot r , the sequence pattern does not forbid robot r to visit b before visiting a, but only requires the robot to visit b after and a while a must be visited.  Consider the areas l1, l2, l3, and l4 and a set of areas {l1,l2,l3} to be all covered following the sequence l1, l2, l3. If the a robot visits the areas l1, l4, l3, l1, l4, and l2 in this order, the mission is not satisfied. Vice versa, if the a robot visits the areas l1, l3, l1, l2, l4, and l3 in this order, the mission is satisfied.  Sequenced Visit and Avoidance often go together. Avoidance patterns are used to require robots to avoid obstacles as e.g. they guard an area. Triggers can also be used in combination with the Sequenced Visit pattern to specify conditions upon which Visit should start or stop.
+			</examples>
+			<relationships>
+			The Sequenced Visit pattern generalizes the Ordered visit patterns that further constrain how locations are visited.
+			</relationships>
+			<occurrences>
+			Yoo et al. Kress-Gazit et al. and formulate an LTL mission specification that ensures that a set of areas are visited in sequence. Specifically, an LTL mission specification is provided for the following mission requirement: visit a set of area l1, l2 ... ln by ensuring that l1 is visited after (but not necessarily only after) area l2.
+			</occurrences>
+		</pattern>
+	</category>
+</patternsystem>

@@ -16,45 +16,7 @@ import se.got.ltl.atoms.LTLIPropositionalAtom;
 
 public enum CoreMovementPatterns {
 
-	VISIT {
-		@Override
-		public String toString() {
-			return "Visit";
-		}
-
-		public LTLFormula getMission(String[] locations) {
-			return Arrays.asList(locations).stream()
-					.map(location -> (LTLFormula) new LTLEventually(new LTLIPropositionalAtom(location)))
-					.reduce(LTLFormula.TRUE, conjunctionOperator);
-
-		}
-
-
-		@Override
-		public String getDescription() {
-			return "A robot must visit an area or a set of areas. This area can be a set of locations of a building, or a set of points of interest on a map that must be surveyed.";
-		}
-
-		@Override
-		public String getVariations() {
-			return "If a relational notion of space is used, propositions have the form \"r in l\" where in indicates that the robot r is inside location l, while l identifies the desired location. If an absolute notion of space is used, propositions have the form \"r at (x,y,z)\" where at indicates that the robot r is in a specific point and (x,y,z) indicates a precise position in space. A variation can be obtained where not all the areas in the set must be visited. In this case, it is sufficient to replace the AND operator with an OR.";
-		}
-
-		@Override
-		public String getExamples() {
-			return "A common usage example of the Visit pattern is a scenario in which a robot has to collect a set of items that are placed in different locations and bring them in a target destination. Visit and Avoidance patterns often go together. Avoidance patterns are used e.g. to require robots to avoid obstacles as they guard an area. Trigger patterns can also be used in combination with the Visit pattern to specify conditions upon which Visit should start or stop.";
-		}
-
-		@Override
-		public String getRelationships() {
-			return "The Visit pattern generalizes most of the core movement patterns that constrain how locations are visited.";
-		}
-
-		@Override
-		public String getOccurrences() {
-			return "Yoo et al. and Kress-Gazit et al. formulate an LTL mission specification to ensure that a set of areas are visited. In the first case, the visiting pattern is combined with the specification of past and future avoidance mission requirements. In the second case, an LTL mission specification is provided to describe the following mission requirement: the robot must go to rooms $P1$, $P2$, $P3$ and $P4$ in any order.";
-		}
-	},
+	
 	SEQUENCED_VISIT {
 		@Override
 		public String toString() {

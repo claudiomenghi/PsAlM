@@ -5,14 +5,14 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 
 import se.got.ltl.atoms.LTLIPropositionalAtom;
-import se.got.ltl.atoms.MITLITrue;
+import se.got.ltl.atoms.LTLTrue;
 import se.got.ltl.visitors.MITLIVisitor;
 
 public abstract class LTLFormula extends Formula {
 
 	private int maxIntComparedto = 0;
 
-	public static final LTLFormula TRUE = new MITLITrue();
+	public static final LTLFormula TRUE = new LTLTrue();
 
 	public LTLFormula() {
 		super();
@@ -75,7 +75,7 @@ public abstract class LTLFormula extends Formula {
 	public static LTLFormula or(LTLFormula... formulae) {
 		LTLFormula f = formulae[0];
 		for (int i = 1; i < formulae.length; i++) {
-			f = new LTLIDisjunction(f, formulae[i]);
+			f = new LTLDisjunction(f, formulae[i]);
 		}
 		return f;
 	}
