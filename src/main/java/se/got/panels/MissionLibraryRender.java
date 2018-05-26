@@ -10,11 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileSystemView;
 
 public class MissionLibraryRender extends DefaultListCellRenderer {
@@ -44,16 +48,27 @@ public class MissionLibraryRender extends DefaultListCellRenderer {
 
 		try {
 			String val = (String) value;
-		
+
 			icon = new ImageIcon(ImageIO.read(getClass().getClassLoader()
 					.getResourceAsStream("images/" + val.substring(0, val.indexOf(" ")) + ".png")));
 			Image image = icon.getImage(); // transform it
 			Image newimg = image.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
 			icon = new ImageIcon(newimg);
+
+			JLabel c = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+			c.setBorder(new EmptyBorder(10, 10, 10, 10));
+			c.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+		label.setBorder(new EmptyBorder(10, 10, 10, 10));
+		label.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+		
 		label.setText((String) value);
 		label.setIcon(icon);
 

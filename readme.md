@@ -28,6 +28,20 @@ A publish subscribe architecture is used to the remote application to notify the
 * Double click on the downloaded jar
 * If you want to use PsAlMISt with ROS, you can use for example a Rest2Ros component [https://github.com/claudiomenghi/Rest2Ros](https://github.com/claudiomenghi/Rest2Ros) that can be integrated with LTL planners such as [https://github.com/MengGuo/tiago_ltl_flexbe](https://github.com/MengGuo/tiago_ltl_flexbe)
 
+## Example scenarios
+
+### Coffe delivery
+In this scenarios the robot has to bring the coffe to an employee. The mission is realizing by using the order visit pattern, that forces the robot to visit first the coffe room and then the office the employee and two instantaneous reaction patterns, one that asks a user to load the coffe on the robot when the kitchen is reached, the other that asks the employee to remove the coffe from the robot when the office is reached.
+
+<a href="https://youtu.be/SiEHdux9zv8" target="_blank"><img src="http://img.youtube.com/vi/SiEHdux9zv8/0.jpg" /></a>
 
 
+### Fika organizer 
+Fika in sweden is a moment in which people  have coffee accompanied with pastries, cookies or pie. The robot has to call people for the fika break. The mission is realizing by using the  visit pattern (no ordering is required on how the employees are called), that forces the robot to visit two areas of a building. The instantaneous reaction patterns is used to specify that the robot should call employee for fika when each area is entered. 
 
+<a href="https://youtu.be/kIAlJYcRV4o" target="_blank"><img src="http://img.youtube.com/vi/kIAlJYcRV4o/0.jpg" /></a>
+
+### Fire robot
+If a fire is detected the robot has to force the employee to leaving the building. The mission is realized using the patrolling pattern. The robot keeps patrolling the corridor  and the kitchen. Two instantaneous reaction patterns are used to force the robot sending alerting messages to the employees.
+
+<a href="https://youtu.be/duiPHga150g" target="_blank"><img src="http://img.youtube.com/vi/duiPHga150g/0.jpg" /></a>

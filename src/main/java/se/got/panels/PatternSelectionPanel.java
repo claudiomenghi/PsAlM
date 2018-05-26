@@ -27,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import se.got.Avoidance;
@@ -95,16 +96,29 @@ public class PatternSelectionPanel extends JPanel {
 	public PatternSelectionPanel() {
 		super();
 
-		locationsModel.addElement("Beedroom");
-		locationsModel.addElement("Office");
-		locationsModel.addElement("Dining_Room");
-		actionsModel.addElement("Load_box");
-		actionsModel.addElement("Unload_box");
+		locationsModel.addElement("coffe");
+		//locationsModel.addElement("patrizio_office");
+		locationsModel.addElement("claudio_office");
+		//locationsModel.addElement("kitchen");
+		//locationsModel.addElement("corridor");
+		//locationsModel.addElement("area1");
+		//locationsModel.addElement("area2");
+
+		
+		
+		actionsModel.addElement("ask_load_coffe");
+		actionsModel.addElement("ask_unload_coffe");
+		//actionsModel.addElement("raise_fire_alarm");
+		//actionsModel.addElement("call_for_fika");
 
 		availableActions.setModel(actionsModel);
+		availableActions.setBorder(new LineBorder(Color.BLACK));
+		
 
 		availableLocations.setModel(locationsModel);
-
+		availableLocations.setBorder(new LineBorder(Color.BLACK));
+		
+		
 		patternItems = new DefaultComboBoxModel<>();
 
 		patternBoxSelector = new JComboBox<String>(patternItems);
@@ -162,12 +176,19 @@ public class PatternSelectionPanel extends JPanel {
 		availableActions.setSelectedIndex(0);
 		availableActions.setVisible(false);
 
+		availableActions.setFixedCellHeight(50);
+		availableActions.setFixedCellWidth(100);
+
+		
 		availableLocations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		availableLocations.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		availableLocations.setAutoscrolls(true);
 		availableLocations.setMaximumSize(new Dimension(30, 20));
 		availableLocations.setSelectedIndex(0);
 
+		availableLocations.setFixedCellHeight(50);
+		availableLocations.setFixedCellWidth(100);
+		
 		this.loadMission = new javax.swing.JButton();
 
 		this.loadMission.setText(LOAD_MISSION);

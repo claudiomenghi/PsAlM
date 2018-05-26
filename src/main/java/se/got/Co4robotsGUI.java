@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -26,6 +27,9 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ColorUIResource;
 
+import se.got.ltl.LTLFormula;
+import se.got.ltl.LTLIGlobally;
+import se.got.ltl.atoms.LTLIPropositionalAtom;
 import se.got.ltl.visitors.LTLFormulaToStringVisitor;
 import se.got.panels.MissionLibraryPanel;
 import se.got.panels.MissionLibraryRender;
@@ -49,6 +53,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	private JPanel remotePanel;
 	private javax.swing.JButton sendMission;
+
+	private javax.swing.JButton stopMission;
 	private javax.swing.JButton subscribe;
 
 	public static JLabel selectedMissionJLabel;
@@ -159,20 +165,50 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		this.sendMission.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 
-				if(Co4robotsGUI.selectedMissionJLabel.getText().equals("No mission selected")) {
-					JOptionPane.showMessageDialog(null, "No mission selected"); 
-				}
-				else {
-					
+				if (Co4robotsGUI.selectedMissionJLabel.getText().equals("No mission selected")) {
+					JOptionPane.showMessageDialog(null, "No mission selected");
+				} else {
+
 					MissionSender sender = new MissionSender();
 					try {
+						LTLFormula f = LTLFormula.TRUE;
+						for (int i = 0; i < PatternSelectionPanel.locationsModel.size(); i++) {
+							for (int j = i + 1; j < PatternSelectionPanel.locationsModel.size(); j++) {
+
+								if (i != j) {
+									System.out.println(PatternSelectionPanel.locationsModel.getElementAt(i));
+									f = LTLFormula.and(f,
+											LTLFormula.not(LTLFormula.and(
+													new LTLIPropositionalAtom(
+															PatternSelectionPanel.locationsModel.getElementAt(i)),
+													new LTLIPropositionalAtom(
+															PatternSelectionPanel.locationsModel.getElementAt(j)))));
+								}
+							}
+						}
+						System.out.println(f);
+
 						sender.send(
-								MissionLibrary.mapSpecificationFormula.get(Co4robotsGUI.currentMission).accept(new LTLFormulaToStringVisitor()),
+
+								LTLFormula.and(MissionLibrary.mapSpecificationFormula.get(Co4robotsGUI.currentMission),
+										new LTLIGlobally(f)).accept(new LTLFormulaToStringVisitor()),
 								ipTextField.getText(), portTextField.getText());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
+			}
+
+		});
+
+		this.stopMission = new JButton("Stop mission");
+
+		this.stopMission.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+				MissionSender sender = new MissionSender();
+
+				sender.send("stop",ipTextField.getText(), portTextField.getText());
 			}
 
 		});
@@ -193,9 +229,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 		BufferedImage myPicture;
 		try {
-			myPicture = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/co4robotsLogo.png"));
+			// myPicture =
+			// ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/co4robotsLogo.png"));
+			myPicture = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/PsAlMIStLogo.png"));
 
+			// PsAlMIStLogo.png
 			ImageIcon icon = new ImageIcon(myPicture);
+			icon = new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() / 3, icon.getIconHeight() / 3,
+					java.awt.Image.SCALE_SMOOTH));
 			JLabel picLabel = new JLabel(icon);
 			jPanelLogo.add(picLabel);
 		} catch (IOException e) {
@@ -249,18 +290,18 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		JPanel p3 = new JPanel();
 		p3.setBackground(BACKGROUNDCOLOR);
 		p3.add(portTextField);
-		
+
 		JLabel missionJLabel = new JLabel("Mission:");
 		missionJLabel.setForeground(grayCo4robots);
 		missionJLabel.setFont(fonttitle);
 
 		selectedMissionJLabel = new JLabel("No mission selected");
-		
+
 		JPanel p4 = new JPanel();
 		p4.setBackground(BACKGROUNDCOLOR);
 		p4.add(missionJLabel);
 		p4.add(selectedMissionJLabel);
-		
+
 		JPanel clientServer = new JPanel();
 		clientServer.setBackground(BACKGROUNDCOLOR);
 		FlowLayout f = new FlowLayout();
@@ -271,6 +312,15 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		clientServer.add(portLabel);
 		clientServer.add(p3);
 		clientServer.add(this.sendMission);
+
+
+		JPanel stopMissionPanel = new JPanel();
+		stopMissionPanel.setBackground(BACKGROUNDCOLOR);
+
+		FlowLayout f1 = new FlowLayout();
+
+		stopMissionPanel.setLayout(f1);
+		stopMissionPanel.add(this.stopMission);
 
 		JPanel pubSub = new JPanel();
 		pubSub.setBackground(BACKGROUNDCOLOR);
@@ -283,11 +333,14 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		memotePalenlLayout.setHorizontalGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
 				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(p4))
 				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(clientServer))
+				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(stopMissionPanel))
 				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(pubSub)));
 
 		memotePalenlLayout.setVerticalGroup(memotePalenlLayout.createSequentialGroup()
 				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(p4))
-				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(clientServer))
+				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+						.addComponent(clientServer))
+				.addGroup(memotePalenlLayout.createSequentialGroup().addComponent(stopMissionPanel))
 				.addGroup(memotePalenlLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(pubSub)));
 
 		remotePanel.setLayout(memotePalenlLayout);
@@ -302,8 +355,6 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		missionLibrary.setBackground(grayCo4robots);
 		missionLibrary.setForeground(Color.white);
 
-
-		
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(mainPanel);
 		mainPanel.setLayout(layout);
 
@@ -311,8 +362,8 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		layout.setAutoCreateContainerGaps(true);
 
 		layout.createSequentialGroup();
-		
-		MissionLibraryPanel missionLibraryPanel=new MissionLibraryPanel(missionLibrary, missionLibraryModel);
+
+		MissionLibraryPanel missionLibraryPanel = new MissionLibraryPanel(missionLibrary, missionLibraryModel);
 
 		layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(jPanelLogo)
 				.addGroup(layout.createParallelGroup().addComponent(remotePanel).addComponent(patternSelectionPanel)
@@ -337,7 +388,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 
 	public static void main(String args[]) {
 		/* Create and display the form */
-		final String ip = args.length > 0 ? args[0] : "127.0.0.1";
+		final String ip = args.length > 0 ? args[0] : "10.42.0.1";
 		final String port = args.length > 0 ? args[1] : "13000";
 
 		java.awt.EventQueue.invokeLater(new Runnable() {

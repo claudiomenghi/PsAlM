@@ -49,6 +49,7 @@ public class MissionLibraryPanel extends JPanel {
 
 	private static DefaultListModel<String> missionLibraryModel;
 
+
 	public MissionLibraryPanel(JList<String> missionLibrary, DefaultListModel<String> missionLibraryModel) {
 		super();
 
