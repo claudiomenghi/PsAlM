@@ -33,7 +33,7 @@ A publish subscribe architecture is used to the remote application to notify the
 ### Coffe delivery
 In this scenarios the robot has to bring the coffe to an employee. The mission is realizing by using the order visit pattern, that forces the robot to visit first the coffe room and then the office the employee and two instantaneous reaction patterns, one that asks a user to load the coffe on the robot when the kitchen is reached, the other that asks the employee to remove the coffe from the robot when the office is reached.
 
-<a href="https://youtu.be/SiEHdux9zv8" target="_blank"><img src="http://img.youtube.com/vi/SiEHdux9zv8/0.jpg" /></a>
+<a href="https://youtu.be/izTUh-Zc-2Q" target="_blank"><img src="http://img.youtube.com/vi/izTUh-Zc-2Q/0.jpg" /></a>
 
 
 ### Fika organizer 
