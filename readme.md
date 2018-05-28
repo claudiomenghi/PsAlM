@@ -6,7 +6,7 @@ You can consult the full list of patterns and have additional information in [ht
 
 ## Publications
 * Poster: Property Specification Patterns for Robotic Missions <br/>
-40th International Conference on Software Engineering (ICSE), Poster Track
+40th International Conference on Software Engineering (ICSE), Poster Track <br/>
 Claudio Menghi, Christos Tsigkanos, Thorsten Berger, Patrizio Pelliccione, Carlo Ghezzi
 
 
