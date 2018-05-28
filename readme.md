@@ -5,7 +5,7 @@ PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 applicat
 You can consult the full list of patterns and have additional information in [http://178.62.206.217/patterns/](http://178.62.206.217/patterns/)
 
 ## Publications
-* Poster: Property Specification Patterns for Robotic Missions
+* Poster: Property Specification Patterns for Robotic Missions <br/>
 Claudio Menghi, Christos Tsigkanos, Thorsten Berger, Patrizio Pelliccione, Carlo Ghezzi
 
 
