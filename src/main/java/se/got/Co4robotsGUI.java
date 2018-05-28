@@ -6,8 +6,10 @@ package se.got;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -26,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.ColorUIResource;
+
+import com.apple.eawt.Application;
 
 import se.got.ltl.LTLFormula;
 import se.got.ltl.LTLIGlobally;
@@ -238,7 +242,30 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 			icon = new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() / 3, icon.getIconHeight() / 3,
 					java.awt.Image.SCALE_SMOOTH));
 			JLabel picLabel = new JLabel(icon);
-			jPanelLogo.add(picLabel);
+			jPanelLogo.add(picLabel, BorderLayout.CENTER);
+			
+			BufferedImage myPicture2 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/co4robotsLogo.png"));
+
+			// PsAlMIStLogo.png
+			ImageIcon icon2 = new ImageIcon(myPicture2);
+			JLabel picLabel2 = new JLabel(icon2);
+			
+			icon2 = new ImageIcon(icon2.getImage().getScaledInstance(icon2.getIconWidth() / 3, icon2.getIconHeight() / 3,
+					java.awt.Image.SCALE_SMOOTH));
+
+			jPanelLogo.add(picLabel2, BorderLayout.EAST);
+			
+			
+			
+			BufferedImage myPicture3 = ImageIO.read(getClass().getClassLoader().getResourceAsStream("images/img2.png"));
+
+			// PsAlMIStLogo.png
+			ImageIcon icon3 = new ImageIcon(myPicture3);
+
+			
+			jPanelLogo.add(new JLabel(icon3),BorderLayout.WEST);
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -199,6 +199,12 @@ public class PatternSelectionPanel extends JPanel {
 				try {
 					loadMission();
 					repaint();
+					showCoreMovementPatternView();
+					patternCategorySelector.setSelectedIndex(0);
+					patternBoxSelector.setSelectedIndex(0);
+					patternInputsLabel.setText("");
+					input1.setText("");
+					input2.setText("");
 				} catch (Exception e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, e.getMessage());

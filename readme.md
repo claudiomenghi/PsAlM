@@ -2,6 +2,13 @@
 
 PsAlMISt is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 application. It allows to create complex missions based on a set of Movement specification patterns. PsAlMISt can also send the created mission to a given planner that computes and executes it. It is fully integrated within the Co4robot project [http://www.co4robots.eu/](http://www.co4robots.eu/)
 
+You can consult the full list of patterns and have additional information in [http://178.62.206.217/patterns/](http://178.62.206.217/patterns/)
+
+## Publications
+* Poster: Property Specification Patterns for Robotic Missions
+Claudio Menghi, Christos Tsigkanos, Thorsten Berger, Patrizio Pelliccione, Carlo Ghezzi
+
+
 ## Video of PsAlMISt in action
 
 
