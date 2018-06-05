@@ -82,7 +82,7 @@ public enum Triggers {
 
 		@Override
 		public LTLFormula getMission(LTLFormula f1, LTLFormula f2) {
-			return new LTLIGlobally(new LTLIImplies(f1, f2));
+			return new LTLIGlobally(new LTLIImplies(f1,  LTLFormula.next(f2)));
 		}
 	},
 	DELAYED_REACTION {

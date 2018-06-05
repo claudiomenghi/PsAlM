@@ -124,17 +124,12 @@ public class PatternSelectionPanel extends JPanel {
 
 		componentJPanel.setLayout(gridlayout);
 
-		actionsModel.addElement("loading");
-		actionsModel.addElement("unloading");
+		actionsModel.addElement("call_for_loading");
+		actionsModel.addElement("call_for_unloading");
 
 		actionsModel.addElement("col_loading");
 		actionsModel.addElement("col_unloading");
 
-		actionsModel.addElement("loading_need");
-		actionsModel.addElement("unloading_need");
-
-		actionsModel.addElement("col_loading_need");
-		actionsModel.addElement("col_unloading_need");
 
 		// actionsModel.addElement("raise_fire_alarm");
 		// actionsModel.addElement("call_for_fika");
@@ -184,21 +179,13 @@ public class PatternSelectionPanel extends JPanel {
 		availableActions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		availableActions.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		availableActions.setAutoscrolls(true);
-		availableActions.setMaximumSize(new Dimension(50, 100));
 		availableActions.setSelectedIndex(0);
-		availableActions.setVisibleRowCount(2);
-
 		availableActions.setFixedCellHeight(50);
-		availableActions.setFixedCellWidth(70);
-
+		availableActions.setFixedCellWidth(120);
 		availableActions.setModel(actionsModel);
-
-		availableActions.setCellRenderer(new MyCellRenderer());
 		availableActions.setVisibleRowCount(1);
-
 		availableActions.setDragEnabled(true);
 
-		//availableActions.setCellRenderer(new TabListCellRender());
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
