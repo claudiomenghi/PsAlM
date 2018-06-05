@@ -3,22 +3,15 @@ package se.got.panels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileSystemView;
 
 public class MissionLibraryRender extends DefaultListCellRenderer {
@@ -64,14 +57,14 @@ public class MissionLibraryRender extends DefaultListCellRenderer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		label.setBorder(new EmptyBorder(10, 10, 10, 10));
 		label.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-		
+
 		label.setText((String) value);
 		label.setIcon(icon);
 
+		
 		if (isSelected) {
 			label.setBackground(backgroundSelectionColor);
 			label.setForeground(textSelectionColor);

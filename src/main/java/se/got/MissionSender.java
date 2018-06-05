@@ -21,7 +21,7 @@ public class MissionSender {
 
 	public void send(String mission, String ip, String port)  {
 
-		System.out.println("Sending the mission "+mission+ "using a POST request");
+		System.out.println("Sending the mission "+mission+ " to the ip: "+ip+ " and port "+ port);
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpPost httppost = new HttpPost("http://"+ip+":"+port);
