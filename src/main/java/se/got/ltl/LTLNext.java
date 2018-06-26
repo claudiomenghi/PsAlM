@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.google.common.base.Preconditions;
 
-import se.got.ltl.visitors.MITLIVisitor;
+import se.got.ltl.visitors.LTLVisitor;
 
 public class LTLNext extends LTLFormula implements UnaryFormula<LTLFormula> {
 
@@ -22,7 +22,7 @@ public class LTLNext extends LTLFormula implements UnaryFormula<LTLFormula> {
 	}
 
 	@Override
-	public <T> T accept(MITLIVisitor<T> visitor) {
+	public <T> T accept(LTLVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

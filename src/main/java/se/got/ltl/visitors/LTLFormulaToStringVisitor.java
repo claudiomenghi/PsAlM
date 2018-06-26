@@ -1,8 +1,8 @@
 package se.got.ltl.visitors;
 
 import se.got.ltl.LTLConjunction;
-import se.got.ltl.LTLIDisjunction;
 import se.got.ltl.LTLEventually;
+import se.got.ltl.LTLIDisjunction;
 import se.got.ltl.LTLIGlobally;
 import se.got.ltl.LTLIIff;
 import se.got.ltl.LTLIImplies;
@@ -10,75 +10,88 @@ import se.got.ltl.LTLINegation;
 import se.got.ltl.LTLISince;
 import se.got.ltl.LTLIUntil;
 import se.got.ltl.LTLNext;
-import se.got.ltl.atoms.LTLIPropositionalAtom;
-import se.got.ltl.atoms.MITLIRelationalAtom;
-import se.got.ltl.atoms.MITLITrue;
+import se.got.ltl.atoms.LTLPAAtom;
+import se.got.ltl.atoms.LTLPEAtom;
+import se.got.ltl.atoms.LTLPLAtom;
+import se.got.ltl.atoms.LTLPropositionalAtom;
+import se.got.ltl.atoms.LTLTrue;
 
-public class LTLFormulaToStringVisitor implements MITLIVisitor<String> {
+public class LTLFormulaToStringVisitor implements LTLVisitor<String> {
 
 	@Override
 	public String visit(LTLIDisjunction formula) {
-		return "( "+formula.getLeftChild().accept(this)+") || ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") || (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
-	public String visit(MITLITrue formula) {
+	public String visit(LTLTrue formula) {
 		return "TRUE";
-}
+	}
 
 	@Override
 	public String visit(LTLConjunction formula) {
-		return "( "+formula.getLeftChild().accept(this)+") && ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") && (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
 	public String visit(LTLINegation formula) {
-		return " ! (" + formula.getChild().accept(this) +")";
+		return " ! (" + formula.getChild().accept(this) + ")";
 	}
 
 	@Override
 	public String visit(LTLIUntil formula) {
-		return "( "+formula.getLeftChild().accept(this)+") U ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") U (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
 	public String visit(LTLIImplies formula) {
-		return "( "+formula.getLeftChild().accept(this)+") -> ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") -> (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
 	public String visit(LTLIIff formula) {
-		return "( "+formula.getLeftChild().accept(this)+") <-> ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") <-> (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
 	public String visit(LTLISince formula) {
-		return "( "+formula.getLeftChild().accept(this)+") S ("+formula.getRightChild().accept(this)+" )";
+		return "( " + formula.getLeftChild().accept(this) + ") S (" + formula.getRightChild().accept(this) + " )";
 	}
 
 	@Override
-	public String visit(LTLIPropositionalAtom formula) {
+	public String visit(LTLPropositionalAtom formula) {
 		return formula.getAtomName();
 	}
 
 	@Override
-	public String visit(MITLIRelationalAtom formula) {
-		return formula.getIdentifier();
-	}
-
-	@Override
 	public String visit(LTLEventually mitliEventually) {
-		return " <> (" + mitliEventually.getChild().accept(this) +")";
+		return " <> (" + mitliEventually.getChild().accept(this) + ")";
 	}
 
 	@Override
 	public String visit(LTLIGlobally mitliGlobally) {
-		return " [] (" + mitliGlobally.getChild().accept(this) +")";
+		return " [] (" + mitliGlobally.getChild().accept(this) + ")";
 	}
 
 	@Override
 	public String visit(LTLNext ltlNext) {
-		return " X (" + ltlNext.getChild().accept(this) +")";
+		return " X (" + ltlNext.getChild().accept(this) + ")";
+	}
+
+	@Override
+	public String visit(LTLPLAtom ltlplAtom) {
+		return "(" + ltlplAtom.getRobotName() + " in " + ltlplAtom.getLocationName() + ")";
+	}
+
+	@Override
+	public String visit(LTLPEAtom ltlpeAtom) {
+		return "("+ltlpeAtom.getCondition()+")";
+		
+	}
+
+	@Override
+	public String visit(LTLPAAtom ltlpaAtom) {
+		return "(" + ltlpaAtom.getRobotName() + " exec " + ltlpaAtom.getActionName() + ")";
 	}
 
 }

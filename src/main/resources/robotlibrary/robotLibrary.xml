@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robotsLibrary>
+    <robot>
+        <name>Tiago</name>
+        <iconPath>img/Tiago.jpg</iconPath>
+        <actions>
+            <action>action1</action>
+        </actions>
+    </robot>
+    <robot>
+        <name>Summit</name>
+        <iconPath>img/Summit.jpg</iconPath>
+        <actions>
+            <action>action2</action>
+        </actions>
+    </robot>
+</robotsLibrary>

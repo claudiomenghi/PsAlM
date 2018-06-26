@@ -12,7 +12,7 @@ import se.got.ltl.LTLIImplies;
 import se.got.ltl.LTLINegation;
 import se.got.ltl.LTLIUntil;
 import se.got.ltl.LTLNext;
-import se.got.ltl.atoms.LTLIPropositionalAtom;
+import se.got.ltl.atoms.LTLPropositionalAtom;
 
 public enum CoreMovementPatterns {
 
@@ -24,7 +24,7 @@ public enum CoreMovementPatterns {
 
 		public LTLFormula getMission(String[] locations) {
 			return Arrays.asList(locations).stream()
-					.map(location -> (LTLFormula) new LTLEventually(new LTLIPropositionalAtom(location)))
+					.map(location -> (LTLFormula) new LTLEventually(new LTLPropositionalAtom(location)))
 					.reduce(LTLFormula.TRUE, conjunctionOperator);
 
 		}
@@ -64,10 +64,10 @@ public enum CoreMovementPatterns {
 		@Override
 		public LTLFormula getMission(String[] locations) {
 			List<String> loc = Arrays.asList(locations);
-			LTLFormula f = new LTLEventually(new LTLIPropositionalAtom(loc.get(loc.size() - 1)));
+			LTLFormula f = new LTLEventually(new LTLPropositionalAtom(loc.get(loc.size() - 1)));
 
 			for (int index = loc.size() - 2; index >= 0; index--) {
-				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(loc.get(index)), f));
+				f = new LTLEventually(LTLFormula.and(new LTLPropositionalAtom(loc.get(index)), f));
 			}
 			return f;
 
@@ -114,8 +114,8 @@ public enum CoreMovementPatterns {
 
 			
 			for (int index = loc.size() - 1; index > 0; index--) {
-				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-						new LTLIPropositionalAtom(loc.get(index-1))));
+				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+						new LTLPropositionalAtom(loc.get(index-1))));
 			}
 			return LTLFormula.and(f, f1);
 		}
@@ -162,11 +162,11 @@ public enum CoreMovementPatterns {
 				f1 = LTLFormula.and(f1, 
 						new LTLIGlobally(
 								new LTLIImplies(
-										new LTLIPropositionalAtom(loc.get(index)),
+										new LTLPropositionalAtom(loc.get(index)),
 										LTLFormula.next(
 												new LTLIUntil(
-														new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-														new LTLIPropositionalAtom(loc.get(index+1))
+														new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+														new LTLPropositionalAtom(loc.get(index+1))
 														)
 												)
 										)
@@ -219,14 +219,14 @@ public enum CoreMovementPatterns {
 				for (int index2 = 0; index2 < loc.size(); index2++) {
 					if (index != index2) {
 						f2 = LTLFormula.and(f2,
-								new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-										new LTLIPropositionalAtom(loc.get(index2))));
+								new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+										new LTLPropositionalAtom(loc.get(index2))));
 					}
 				}
 
 				f1 = LTLFormula.and(f1,
 
-						new LTLIGlobally(new LTLIImplies(new LTLIPropositionalAtom(loc.get(index)), f2
+						new LTLIGlobally(new LTLIImplies(new LTLPropositionalAtom(loc.get(index)), f2
 
 						)));
 			}
@@ -345,8 +345,8 @@ public enum CoreMovementPatterns {
 
 			
 			for (int index = loc.size() - 1; index > 0; index--) {
-				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-						new LTLIPropositionalAtom(loc.get(index-1))));
+				f1 = LTLFormula.and(f1, new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+						new LTLPropositionalAtom(loc.get(index-1))));
 			}
 			return LTLFormula.and(f, f1);
 		}
@@ -393,11 +393,11 @@ public enum CoreMovementPatterns {
 				f1 = LTLFormula.and(f1, 
 						new LTLIGlobally(
 								new LTLIImplies(
-										new LTLIPropositionalAtom(loc.get(index)),
+										new LTLPropositionalAtom(loc.get(index)),
 										LTLFormula.next(
 												new LTLIUntil(
-														new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-														new LTLIPropositionalAtom(loc.get(index+1))
+														new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+														new LTLPropositionalAtom(loc.get(index+1))
 														)
 												)
 										)
@@ -448,12 +448,12 @@ public enum CoreMovementPatterns {
 
 			for (int index = 0; index < loc.size() - 1; index++) {
 				f1 = LTLFormula.and(f1,
-						new LTLIGlobally(new LTLIImplies(LTLFormula.and(new LTLIPropositionalAtom(loc.get(index)),
-								new LTLINegation(new LTLIPropositionalAtom(loc.get(index))
+						new LTLIGlobally(new LTLIImplies(LTLFormula.and(new LTLPropositionalAtom(loc.get(index)),
+								new LTLINegation(new LTLPropositionalAtom(loc.get(index))
 
-								)), new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))), new LTLIPropositionalAtom(loc.get(index + 1))))));
-				f2 = LTLFormula.and(f2, new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(loc.get(index))),
-						new LTLIPropositionalAtom(loc.get(index + 1))));
+								)), new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(loc.get(index))), new LTLPropositionalAtom(loc.get(index + 1))))));
+				f2 = LTLFormula.and(f2, new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(loc.get(index))),
+						new LTLPropositionalAtom(loc.get(index + 1))));
 			}
 			return LTLFormula.and(f, LTLFormula.and(f2, f1));
 

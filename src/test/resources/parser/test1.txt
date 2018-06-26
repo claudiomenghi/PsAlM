@@ -1,0 +1,7 @@
+robots: {robot1};
+actions: {action1};
+locations:  {location1}; 
+conditions:  {condition1};
+
+mission: 
+visit(robot1 in location1)

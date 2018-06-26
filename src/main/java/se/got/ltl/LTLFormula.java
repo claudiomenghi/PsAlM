@@ -4,15 +4,15 @@ import java.util.Set;
 
 import com.google.common.base.Preconditions;
 
-import se.got.ltl.atoms.LTLIPropositionalAtom;
-import se.got.ltl.atoms.MITLITrue;
-import se.got.ltl.visitors.MITLIVisitor;
+import se.got.ltl.atoms.LTLPropositionalAtom;
+import se.got.ltl.atoms.LTLTrue;
+import se.got.ltl.visitors.LTLVisitor;
 
 public abstract class LTLFormula extends Formula {
 
 	private int maxIntComparedto = 0;
 
-	public static final LTLFormula TRUE = new MITLITrue();
+	public static final LTLFormula TRUE = new LTLTrue();
 
 	public LTLFormula() {
 		super();
@@ -21,7 +21,7 @@ public abstract class LTLFormula extends Formula {
 
 	public abstract Set<LTLFormula> getChildren();
 
-	public abstract <T> T accept(MITLIVisitor<T> visitor);
+	public abstract <T> T accept(LTLVisitor<T> visitor);
 
 	public int maxIntComparedto() {
 		return maxIntComparedto;
@@ -37,7 +37,7 @@ public abstract class LTLFormula extends Formula {
 	// Producers method to build CLTL formulae of the argument formula
 
 	public static LTLFormula atom(String s) {
-		return new LTLIPropositionalAtom(s);
+		return new LTLPropositionalAtom(s);
 	}
 
 	public static LTLFormula not(LTLFormula f) {

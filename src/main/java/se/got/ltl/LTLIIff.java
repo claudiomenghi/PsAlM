@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.google.common.base.Preconditions;
 
-import se.got.ltl.visitors.MITLIVisitor;
+import se.got.ltl.visitors.LTLVisitor;
 
 
 public class LTLIIff extends LTLFormula implements BinaryFormula<LTLFormula> {
@@ -45,7 +45,7 @@ public class LTLIIff extends LTLFormula implements BinaryFormula<LTLFormula> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <T> T accept(MITLIVisitor<T> visitor) {
+	public <T> T accept(LTLVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

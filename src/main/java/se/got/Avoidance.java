@@ -11,7 +11,7 @@ import se.got.ltl.LTLIImplies;
 import se.got.ltl.LTLINegation;
 import se.got.ltl.LTLIUntil;
 import se.got.ltl.LTLNext;
-import se.got.ltl.atoms.LTLIPropositionalAtom;
+import se.got.ltl.atoms.LTLPropositionalAtom;
 
 public enum Avoidance {
 
@@ -26,9 +26,9 @@ public enum Avoidance {
 			if (!(locations.length == 2)) {
 				throw new Exception("Past avoidance requires two locations as parameter");
 			}
-			return new LTLIImplies(new LTLEventually(new LTLIPropositionalAtom(locations[0])),
-					new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(locations[1])),
-							new LTLIPropositionalAtom(locations[0])));
+			return new LTLIImplies(new LTLEventually(new LTLPropositionalAtom(locations[0])),
+					new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(locations[1])),
+							new LTLPropositionalAtom(locations[0])));
 		}
 
 		@Override
@@ -66,7 +66,7 @@ public enum Avoidance {
 		@Override
 		public LTLFormula getMission(String[] locations) {
 			LTLFormula f = Arrays.stream(locations)
-					.map(a -> (LTLFormula) new LTLINegation(new LTLIPropositionalAtom(a)))
+					.map(a -> (LTLFormula) new LTLINegation(new LTLPropositionalAtom(a)))
 					.reduce(LTLFormula.TRUE, conjunctionOperator);
 
 			return new LTLIGlobally(f);
@@ -109,8 +109,8 @@ public enum Avoidance {
 			if (!(locations.length == 2)) {
 				throw new Exception("Past avoidance requires two locations as parameter");
 			}
-			return new LTLIImplies(new LTLIPropositionalAtom(locations[0]),
-					new LTLINegation(new LTLIPropositionalAtom(locations[1])));
+			return new LTLIImplies(new LTLPropositionalAtom(locations[0]),
+					new LTLINegation(new LTLPropositionalAtom(locations[1])));
 		}
 
 		@Override
@@ -158,7 +158,7 @@ public enum Avoidance {
 
 			LTLFormula f = LTLFormula.TRUE;
 			for (int i = 0; i < num; i++) {
-				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(location), LTLFormula.next(f)));
+				f = new LTLEventually(LTLFormula.and(new LTLPropositionalAtom(location), LTLFormula.next(f)));
 			}
 
 			return f;
@@ -203,7 +203,7 @@ public enum Avoidance {
 
 			LTLFormula f = LTLFormula.TRUE;
 			for (int i = 0; i < num; i++) {
-				f = new LTLEventually(LTLFormula.and(new LTLIPropositionalAtom(location), LTLFormula.next(f)));
+				f = new LTLEventually(LTLFormula.and(new LTLPropositionalAtom(location), LTLFormula.next(f)));
 			}
 
 			return new LTLINegation(f);
@@ -247,11 +247,11 @@ public enum Avoidance {
 
 			String location = locations[0];
 
-			LTLFormula f = new LTLIGlobally(new LTLINegation(new LTLIPropositionalAtom(location)));
+			LTLFormula f = new LTLIGlobally(new LTLINegation(new LTLPropositionalAtom(location)));
 			for (int i = 0; i < num; i++) {
-				f = new LTLIUntil(new LTLINegation(new LTLIPropositionalAtom(location)), 
+				f = new LTLIUntil(new LTLINegation(new LTLPropositionalAtom(location)), 
 						LTLFormula.and(
-						new LTLIPropositionalAtom(location),
+						new LTLPropositionalAtom(location),
 						LTLFormula.next(f)));
 			}
 
