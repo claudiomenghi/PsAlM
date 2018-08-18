@@ -19,20 +19,54 @@
 			</resource>
 		</resources>
 		<plugins>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
-				<version>1.2.1</version> <executions> <execution> <goals> <goal>java</goal> 
-				</goals> </execution> </executions> <configuration> <mainClass>se.got.Co4robotsGUI</mainClass> 
-				<arguments> <argument>foo</argument> <argument>bar</argument> </arguments> 
-				</configuration> </plugin> -->
-
 			<plugin>
-				<groupId>com.zenjava</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>8.8.3</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<mainClass>your.main.class.which.extends.javafx.Application</mainClass>
+					<mainClass>se.gu.evaluation.rq.CorrectnessLTLCheck</mainClass>
+
 				</configuration>
 			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<!-- get all project dependencies -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<!-- MainClass in mainfest make a executable jar -->
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>se.gu.Co4robotsGUI</mainClass>
+						</manifest>
+					</archive>
+
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<!-- bind to the packaging phase -->
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -43,18 +77,38 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-assembly-plugin</artifactId> 
-				<version>2.4.1</version> <configuration> <descriptorRefs> <descriptorRef>jar-with-dependencies</descriptorRef> 
-				</descriptorRefs> <archive> <manifest> <addClasspath>true</addClasspath> 
-				<mainClass>se.got.Co4robotsGUI</mainClass> </manifest> </archive> </configuration> 
-				<executions> <execution> <id>make-assembly</id> <phase>package</phase> <goals> 
-				<goal>single</goal> </goals> </execution> </executions> </plugin> -->
-			<!-- mvn package appbundle:bundle -->
-			<!-- <plugin> <groupId>sh.tak.appbundler</groupId> <artifactId>appbundle-maven-plugin</artifactId> 
-				<version>1.2.0</version> <configuration> <mainClass>se.got.Co4robotsGUI</mainClass> 
-				<bundleName>PsAlMISt</bundleName> <iconFile>PsAlMISt.icns</iconFile> </configuration> 
-				<executions> <execution> <phase>package</phase> <goals> <goal>bundle</goal> 
-				</goals> </execution> </executions> </plugin> -->
+
+
+			<!-- Contains the exec plugin necessary for the Correctness experiments -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>first-execution</id>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<mainClass>se.gu.evaluation.rq.CorrectnessLTLCheck</mainClass>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 	<dependencies>
@@ -66,11 +120,7 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.3</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -93,6 +143,76 @@
 			<version>4.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>se.gu</groupId>
+			<artifactId>NetworkCommunication</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
+
+
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4</artifactId>
+			<version>4.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>se.gu</groupId>
+			<artifactId>LTL</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>se.gu</groupId>
+			<artifactId>Patterns</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>MDSDProject</groupId>
+			<artifactId>MDSDProject</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
 	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>Patterns-mvn-repo</id>
+			<url>https://raw.github.com/claudiomenghi/Patterns/mvn-repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+
+		<repository>
+			<id>LTL-mvn-repo</id>
+			<url>https://raw.github.com/claudiomenghi/LTL/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>MDSDcourse</id>
+			<url>https://raw.github.com/MDSDcourse/MDSDcourse/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>NetworkCommunication-mvn-repo</id>
+			<url>https://raw.github.com/claudiomenghi/NetworkCommunication/mvn-repo/</url>
+		</repository>
+	</repositories>
+
+
 </project>

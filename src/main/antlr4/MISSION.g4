@@ -9,21 +9,21 @@
  }
  @header {
  	
- 	package se.got.parser;
- 	import se.got.ltl.atoms.LTLAtom;
+ 	package se.gu.parser;
+ 	import se.gu.ltl.atoms.LTLAtom;
  	
- 	import se.got.ltl.atoms.LTLPAAtom;
- 	import se.got.ltl.atoms.LTLPEAtom;
- 	import se.got.ltl.atoms.LTLPLAtom;
+ 	import se.gu.ltl.atoms.LTLPAAtom;
+ 	import se.gu.ltl.atoms.LTLPEAtom;
+ 	import se.gu.ltl.atoms.LTLPLAtom;
  	import java.util.HashSet;
- 	import se.got.patterns.Pattern;
+ 	import se.gu.patterns.Pattern;
  	import java.util.Set;
- 	import se.got.patterns.coremovement.coverage.*;
- 	import se.got.patterns.coremovement.surveillance.*;
- 	import se.got.patterns.avoidance.conditional.*;
- 	import se.got.patterns.avoidance.restricted.*;
- 	import se.got.patterns.triggers.*;
- 	import se.got.mission.*;
+ 	import se.gu.patterns.coremovement.coverage.*;
+ 	import se.gu.patterns.coremovement.surveillance.*;
+ 	import se.gu.patterns.avoidance.conditional.*;
+ 	import se.gu.patterns.avoidance.restricted.*;
+ 	import se.gu.patterns.triggers.*;
+ 	import se.gu.mission.*;
 }
 
 mission returns [Mission robotsmission]
@@ -199,9 +199,9 @@ surveillance returns [Pattern value]: patrolling{
 
 
 visit returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'visit(' pl {
 	$atoms.add($pl.atom);
 }
@@ -212,9 +212,9 @@ visit returns [Pattern p] locals[
 
 
 sequenced_visit returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'sequenced_visit(' pl {
 	$atoms.add($pl.atom);
 }
@@ -224,9 +224,9 @@ sequenced_visit returns [Pattern p] locals[
  } )* ')' {$p=new SequencedVisit($atoms); };
 
 ordered_visit returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'ordered_visit(' pl {
 	$atoms.add($pl.atom);
 }
@@ -238,9 +238,9 @@ ordered_visit returns [Pattern p] locals[
  
  
 strict_ordered_visit returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'strict_ordered_visit(' pl {
 	$atoms.add($pl.atom);
 }
@@ -254,9 +254,9 @@ strict_ordered_visit returns [Pattern p] locals[
 
 
 fair_visit returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'fair_visit(' pl {
 	
 	$atoms.add($pl.atom);
@@ -269,9 +269,9 @@ fair_visit returns [Pattern p] locals[
  
 
 patrolling returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'patrolling(' pl{
  	$atoms.add($pl.atom);
  } ( ',' pl{
@@ -279,9 +279,9 @@ patrolling returns [Pattern p] locals[
  } )* ')' {$p=new Patrolling($atoms); };
 
 sequenced_patrolling returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'sequenced_patrolling(' pl{
  	$atoms.add($pl.atom);
  } ( ',' pl{
@@ -289,9 +289,9 @@ sequenced_patrolling returns [Pattern p] locals[
  } )* ')' {$p=new SequencedPatrolling($atoms); };
 
 ordered_patrolling returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'ordered_patrolling(' pl{
  	$atoms.add($pl.atom);
  } ( ',' pl{
@@ -299,9 +299,9 @@ ordered_patrolling returns [Pattern p] locals[
  } )* ')' {$p=new OrderedPatrolling($atoms); };
 
 strict_ordered_patrolling returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'strict_ordered_patrolling(' pl{
  	$atoms.add($pl.atom);
  } ( ',' pl{
@@ -309,9 +309,9 @@ strict_ordered_patrolling returns [Pattern p] locals[
  } )* ')' {$p=new StrictOrderedPatrolling($atoms); };
 
 fair_patrolling returns [Pattern p] locals[
-	Set<LTLPLAtom> atoms=new HashSet<>();
+	List<LTLPLAtom> atoms=new ArrayList<>();
 ] @init {
-	$atoms=new HashSet<>();
+	$atoms=new ArrayList<>();
 	}: 'fair_patrolling(' pl{
  	$atoms.add($pl.atom);
  } ( ',' pl{
