@@ -14,7 +14,7 @@ Claudio Menghi, Christos Tsigkanos, Thorsten Berger, Patrizio Pelliccione, C
 
 
 
-<a href="https://www.youtube.com/channel/UCDpYiyEjvgqC6f2bGA-qcEQ" target="_blank"><img src="src/main/resources/images/img.png" /></a>
+<a href="https://www.youtube.com/watch?v=ib2hKuRO6n4" target="_blank"><img src="src/main/resources/images/img.png" /></a>
 
 
 ## An overview on PsAlMISt
