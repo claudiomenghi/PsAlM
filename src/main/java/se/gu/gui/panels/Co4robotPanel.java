@@ -21,5 +21,20 @@ public class Co4robotPanel extends JPanel {
 		
 
 	}
+	
+	public Co4robotPanel(Component c1, Component c2,Component c3) {
+		super();
+
+		this.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
+		GridLayout loadlayout = new GridLayout(1, 3);
+
+		this.setLayout(loadlayout);
+		this.add(c1);
+		this.add(c2);
+
+		this.add(c3);
+		
+
+	}
 
 }

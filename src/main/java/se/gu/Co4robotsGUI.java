@@ -46,7 +46,7 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private final static String TITLE = "PsAlMISt: Pattern bAsed MIssion Specifier";
+	private final static String TITLE = "PsAlM: Pattern bAsed MIssion Specifier";
 
 	private static Subscriber sub;
 
@@ -153,6 +153,17 @@ public class Co4robotsGUI extends javax.swing.JFrame {
 		
 		this.getContentPane().setBackground(BACKGROUNDCOLOR);
 		this.setResizable(true);
+		
+		model.addAction("call_for_loading");
+		model.addAction("call_for_unloading");
+		model.addAction("col_loading");
+		model.addAction("col_unloading");
+		
+		model.addLocation("l1");
+		model.addLocation("l2");
+		model.addLocation("l3");
+		model.addLocation("l4");
+
 	}
 
 	public static void main(String args[]) throws IOException {

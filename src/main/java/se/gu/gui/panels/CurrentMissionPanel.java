@@ -247,8 +247,6 @@ public class CurrentMissionPanel extends JPanel {
 
 		layout.setVerticalGroup(layout.createSequentialGroup().addComponent(remotePanel).addComponent(tabbedPane));
 
-		System.out.println("adding the observer to the model");
-
 		this.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
 
 		this.setMaximumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth(),

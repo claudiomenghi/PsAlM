@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -89,24 +90,16 @@ public class PatternSelectionPanel extends JPanel {
 
 	private JLabel patternInputsLabel2 = new JLabel("");
 
-	private JLabel availableLocationsLabel;
 
 	private JLabel dragAndDropJLabel;
 
-	private JLabel availableActionsLabel;
 
 	// private JScrollPane availableActionsScroller;
 
 	private JLabel intentLabel;
-	private JList<String> availableActions = new JList<String>();
-
-	private JList<String> availableLocations = new JList<String>();
 	private JPanel componentJPanel;
 	private DefaultComboBoxModel<String> patternItems;
 
-	private DefaultListModel<String> actionsModel = new DefaultListModel<>();
-
-	private DefaultListModel<String> locationsModel = new DefaultListModel<>();
 
 	public String getSelectedRobotl() {
 		return this.getName();
@@ -121,10 +114,7 @@ public class PatternSelectionPanel extends JPanel {
 		this.setName(name);
 
 		this.model = model;
-		locationsModel.addElement("l1");
-		locationsModel.addElement("l2");
-		locationsModel.addElement("l3");
-		locationsModel.addElement("l4");
+		
 
 		GridLayout gridlayout = new GridLayout(0, 2);
 
@@ -134,20 +124,12 @@ public class PatternSelectionPanel extends JPanel {
 
 		componentJPanel.setLayout(gridlayout);
 
-		actionsModel.addElement("call_for_loading");
-		actionsModel.addElement("call_for_unloading");
-
-		actionsModel.addElement("col_loading");
-		actionsModel.addElement("col_unloading");
+		
 
 		// actionsModel.addElement("raise_fire_alarm");
 		// actionsModel.addElement("call_for_fika");
 
-		availableActions.setModel(actionsModel);
-		availableActions.setBorder(new LineBorder(Color.BLACK));
-
-		availableLocations.setModel(locationsModel);
-		availableLocations.setBorder(new LineBorder(Color.BLACK));
+		
 
 		patternItems = new DefaultComboBoxModel<>();
 
@@ -169,13 +151,8 @@ public class PatternSelectionPanel extends JPanel {
 		intentLabel.setForeground(Co4robotsGUI.GRAYCO4ROBOTS);
 		intentLabel.setFont(Co4robotsGUI.FONTTITLE);
 
-		availableActionsLabel = new JLabel("Available actions:");
-		availableActionsLabel.setForeground(Co4robotsGUI.GRAYCO4ROBOTS);
-		availableActionsLabel.setFont(Co4robotsGUI.FONTTITLE);
 
-		availableLocationsLabel = new JLabel("Available locations:");
-		availableLocationsLabel.setForeground(Co4robotsGUI.GRAYCO4ROBOTS);
-		availableLocationsLabel.setFont(Co4robotsGUI.FONTTITLE);
+
 
 		TitledBorder variationTitle = BorderFactory.createTitledBorder("Variations");
 		variationTitle.setTitlePosition(TitledBorder.RIGHT);
@@ -184,32 +161,6 @@ public class PatternSelectionPanel extends JPanel {
 		patternsJPanel = new javax.swing.JPanel();
 		patternsJPanel.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
 
-		availableActions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		availableActions.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		availableActions.setAutoscrolls(true);
-		availableActions.setSelectedIndex(0);
-		availableActions.setFixedCellHeight(50);
-		availableActions.setFixedCellWidth(120);
-		availableActions.setModel(actionsModel);
-		availableActions.setVisibleRowCount(1);
-		availableActions.setDragEnabled(true);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getViewport().add(availableActions);
-
-		// availableActionsScroller=new JScrollPane(availableActions);
-
-		availableLocations.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		availableLocations.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		availableLocations.setAutoscrolls(true);
-		availableLocations.setSelectedIndex(0);
-
-		availableLocations.setFixedCellHeight(50);
-		availableLocations.setFixedCellWidth(100);
-		availableLocations.setModel(locationsModel);
-
-		availableLocations.setVisibleRowCount(1);
-		availableLocations.setDragEnabled(true);
 
 		this.loadMission = new javax.swing.JButton();
 
@@ -236,10 +187,6 @@ public class PatternSelectionPanel extends JPanel {
 
 		});
 
-		JPanel locationsAvailable = new JPanel();
-		locationsAvailable.add(availableLocations);
-
-		locationsAvailable.setBackground(Co4robotsGUI.BACKGROUNDCOLOR);
 
 		JPanel patternPanel = new JPanel();
 
@@ -307,8 +254,7 @@ public class PatternSelectionPanel extends JPanel {
 		input2JPanel = new Co4robotPanel(patternInputsLabel2, input2);
 
 		dragAndDropPanel = new Co4robotPanel(new JLabel(""), dragAndDropJLabel);
-		locationsPanel = new Co4robotPanel(availableLocationsLabel, availableLocations);
-		actionsPanel = new Co4robotPanel(availableActionsLabel, scrollPane);
+		
 		composePanel = new Co4robotPanel(f1, f2);
 
 		loadPanel = new Co4robotPanel(new JLabel(""), this.loadMission);
@@ -319,8 +265,6 @@ public class PatternSelectionPanel extends JPanel {
 
 		patternPanel.add(dragAndDropPanel);
 
-		patternPanel.add(locationsPanel);
-		patternPanel.add(actionsPanel);
 		patternPanel.add(composePanel);
 		patternPanel.add(loadPanel);
 
@@ -519,9 +463,7 @@ public class PatternSelectionPanel extends JPanel {
 
 		dragAndDropPanel.setVisible(true);
 
-		locationsPanel.setVisible(true);
 
-		actionsPanel.setVisible(false);
 
 		composePanel.setVisible(false);
 
@@ -534,9 +476,7 @@ public class PatternSelectionPanel extends JPanel {
 
 		dragAndDropPanel.setVisible(false);
 
-		locationsPanel.setVisible(false);
-
-		actionsPanel.setVisible(true);
+		
 
 		composePanel.setVisible(false);
 
@@ -549,9 +489,7 @@ public class PatternSelectionPanel extends JPanel {
 
 		dragAndDropPanel.setVisible(true);
 
-		locationsPanel.setVisible(false);
-
-		actionsPanel.setVisible(true);
+		
 
 		composePanel.setVisible(false);
 
@@ -616,12 +554,18 @@ public class PatternSelectionPanel extends JPanel {
 		case "Core Movement":
 			CoreMovementPatterns p1 = CoreMovementPatterns.valueOf(selectedIdem.toUpperCase().replaceAll(" ", "_"));
 			pattern = p1.getMission(selectedLocations);
+	
+			if(model.getAvailableLocations().containsAll(new HashSet<String>(Arrays.asList(selectedLocations)))){
+				ArrayList<String> array = new ArrayList<String>(model.getMissions());
+				String[] d = new String[array.size()];
+				array.toArray(d);
 
-			ArrayList<String> array = new ArrayList<String>(model.getMissions());
-			String[] d = new String[array.size()];
-			array.toArray(d);
+				model.addMission((String) patternBoxSelector.getSelectedItem() + " (" + input1.getText() + ")", pattern);
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Some of the locations have not been defined.");
+			}
 
-			model.addMission((String) patternBoxSelector.getSelectedItem() + " (" + input1.getText() + ")", pattern);
 
 			break;
 		case "Composition":
@@ -633,8 +577,8 @@ public class PatternSelectionPanel extends JPanel {
 			model.addMission((String) patternBoxSelector.getSelectedItem() + " (" + f1.getSelectedItem() + ", "
 					+ f2.getSelectedItem() + ")", pattern);
 
-			array = new ArrayList<String>(model.getMissions());
-			d = new String[array.size()];
+			ArrayList<String> array = new ArrayList<String>(model.getMissions());
+			String[] d = new String[array.size()];
 			array.toArray(d);
 
 		default:

@@ -142,7 +142,6 @@ public class MissionLibraryPanel extends JPanel implements Observer {
 		this.missionLibrary.setCellRenderer(new MissionLibraryRender());
 		
 		this.missionLibraryModel=new DefaultListModel<String>();
-		System.out.println("Update model of the robot " + this.getName());
 
 		for (String e : model.getMissions()) {
 			missionLibraryModel.addElement(e);
@@ -151,7 +150,6 @@ public class MissionLibraryPanel extends JPanel implements Observer {
 		}
 		this.missionLibrary.setModel(missionLibraryModel);
 		this.missionLibrary.repaint();
-
 	}
 
 }

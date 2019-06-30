@@ -1,6 +1,7 @@
 package se.gu.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,7 +9,8 @@ import java.util.Observable;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import se.gu.ltl.LTLFormula;
+import com.google.inject.internal.util.Preconditions;
+
 import se.gu.patterns.Pattern;
 
 public class Workspace extends Observable {
@@ -19,6 +21,51 @@ public class Workspace extends Observable {
 
 	private Map<String, String> mapRobotIP;
 	private Map<String, String> mapRobotPORT;
+	
+	
+	/**
+	 * Contains the actions that the robot can perform
+	 */
+	private final Set<String> availableActions;
+	
+	/**
+	 * contains the locations that the robot can visit
+	 */
+	private final Set<String> availableLocations;
+
+	public Set<String> getAvailableActions() {
+		return Collections.unmodifiableSet(availableActions);
+	}
+
+	public Set<String> getAvailableLocations() {
+		return Collections.unmodifiableSet(availableLocations);
+	}
+	
+	/**
+	 * adds an action to the set of actions present in the model
+	 * @param action the action to be added
+	 * @throws NullPointerException if the action is null
+	 */
+	public void addAction(String action) {
+		Preconditions.checkNotNull(action);
+		this.availableActions.add(action);
+		this.setChanged();
+		this.notifyObservers();
+
+	}
+	
+	/**
+	 * adds a location to the set of locations present in the model
+	 * @param location the location to be added
+	 * @throws NullPointerException if the location is null
+	 */
+	public void addLocation(String location) {
+		Preconditions.checkNotNull(location);
+		this.availableLocations.add(location);
+		this.setChanged();
+		this.notifyObservers();
+
+	}
 
 	private static final Workspace model = new Workspace();
 
@@ -35,6 +82,8 @@ public class Workspace extends Observable {
 		this.mapRobotIP = new HashMap<>();
 		this.mapRobotPORT = new HashMap<>();
 		this.mapSpecificationFormula = new HashMap<>();
+		this.availableActions=new HashSet<String>();
+		this.availableLocations=new HashSet<String>();
 	}
 
 	public void setRobotLibrary(RobotLibrary availableRobots) {
@@ -78,8 +127,7 @@ public class Workspace extends Observable {
 			throw new IllegalArgumentException(
 					"mission  " + missionName  + " already created");
 		}
-		System.out.println("Adding the mission " + missionName );
-
+	
 		this.mapSpecificationFormula.put(missionName, formula);
 		this.setChanged();
 
