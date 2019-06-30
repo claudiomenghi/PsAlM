@@ -66,7 +66,7 @@ public class PatternSelectionPanel extends JPanel {
 
 	private final Workspace model;
 
-	private final String DRAG_AND_DROP_MESSAGE = "Drag and drop the considered locations and actions and separate them with comma";
+	private final String DRAG_AND_DROP_MESSAGE = "Write the locations/actions that parametrize the pattern separated by comma";
 
 	private javax.swing.JButton loadMission;
 	private JLabel f1Label = new JLabel("Formula f1:");
@@ -563,7 +563,7 @@ public class PatternSelectionPanel extends JPanel {
 				model.addMission((String) patternBoxSelector.getSelectedItem() + " (" + input1.getText() + ")", pattern);
 			}
 			else {
-				JOptionPane.showMessageDialog(this, "Some of the locations have not been defined.");
+				JOptionPane.showMessageDialog(this, "Core movement patterns should be parametrized with locations. Check that all the locations have been defined.");
 			}
 
 
