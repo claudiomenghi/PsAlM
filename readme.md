@@ -3,7 +3,7 @@
 PsAlM is a Pattern bAsed MIssion Specifier implemented as a Java 1.8 application. It allows to create complex missions based on a set of Movement specification patterns. PsAlM can also send the created mission to a given planner that computes and executes it. It is fully integrated within the Co4robot project [http://www.co4robots.eu/](http://www.co4robots.eu/)
 
 
-Psalm can be download at [https://github.com/claudiomenghi/PsAlM/releases](https://github.com/claudiomenghi/PsAlM/releases)
+PsAlM can be download at [https://github.com/claudiomenghi/PsAlM/releases](https://github.com/claudiomenghi/PsAlM/releases)
 
 You can consult the full list of patterns and have additional information in [http://roboticpatterns.com](http://roboticpatterns.com)
 
